@@ -67,44 +67,13 @@ var manifestParams = ["launch-date-", "land-date-", "max-date-", "solNum-", "tot
 // getResponse(rovers);
 renderRovers(imgUrls);
 
-// function getResponse(rovers) {
-//     for (var k = 0; k < rovers.length; k++) {
-
-//         var nUrl = intro + rovers[k] + apiKey;
-//         console.log(nUrl);
-
-//         $.ajax({
-//             url: nUrl,
-//             method: "GET"
-//         }).then(function (response) {
-//             var name = response.photo_manifest.name;
-//             names.push(name);
-//             var landDate = response.photo_manifest.landing_date;
-//             landDates.push(landDate);
-//             var launchDate = response.photo_manifest.launch_date;
-//             launchDates.push(launchDate);
-//             var status = response.photo_manifest.status;
-//             stats.push(status);
-//             var maxSol = response.photo_manifest.max_sol;
-//             maxSols.push(maxSol);
-//             var maxDate = response.photo_manifest.max_date;
-//             maxDates.push(maxDate);
-//             var totalPhot = response.photo_manifest.total_photos;
-//             totalPhotos.push(totalPhot);
-
-
-//         });
-
-//     }
-
-// }
 
 function renderRovers(urls) {
     var rCard = $('#rovercards');
     for (var i = 0; i < urls.length; i++) {
         //<!--Card Image-->
         var cardDiv = $('<div>');
-        cardDiv.addClass('col-lg-4 col-md-12 mb-4 card');
+        cardDiv.addClass('card mb-4');
         var oLayCard = $('<div>');
         oLayCard.addClass('view overlay');
         oLayCard.attr('id', rovers[i]);
@@ -121,7 +90,7 @@ function renderRovers(urls) {
         cardDiv.append(oLayCard);
         //<!--Card Content-->
         var bodDiv = $('<div>');
-        bodDiv.addClass('card-body');
+        bodDiv.addClass('card-body elegant-color white-text rounded-bottom');
         //<!--Title-->
         var hTitle = $('<h3>');
         hTitle.addClass('card-title');
@@ -234,9 +203,13 @@ $.ajax({
 
 });
 
+//-----Moment.js used to standardize date format-----------
 var apod = moment().subtract(1, 'days').format('YYYY-MM-DD');
 
-var apodURL = 'https://api.nasa.gov/planetary/apod?api_key=6ahnRsSlhvpPlehhB0fMzpoCmPoENxdPYX8NLcze&date=' + apod;
+var apodURL = 'https://api.nasa.gov/planetary/apod' + apiKey + '&date=' + apod;
+
+
+
 $.ajax({
     url: apodURL,
     method: "GET"
@@ -244,126 +217,11 @@ $.ajax({
     var apodImg = response.url;
     var apodExpl = response.explanation;
     var apodTitle = response.title;
+    $("#intro").css('background', 'url(' + apodImg + ')no-repeat center center fixed' );
     $('#apod').attr('src', apodImg);
     $('#apodExpl').text(apodExpl);
     $('#apodTitle').text(apodTitle);
 });
-
-
-
-
-// //-------Add Gif Button--------------------------
-// $("#add-gif").on("click", function (event) {
-//     event.preventDefault();
-//     var topic = $("#topic-input").val().trim();
-//     topics.push(topic);
-//     var gifRating = $("#rating")[0].value;
-//     var gifLimit = $("#limit")[0].value;
-//     var gifURL = "//api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=" + gifApiKey + "&limit=" + gifLimit;
-//     src = [];
-//     stillURL = [];
-//     animeURL = [];
-//     title = [];
-//     rating = [];
-//     $.ajax({
-//         url: gifURL,
-//         method: "GET"
-//     }).then(function (response) {
-//         results = response.data;
-//         renderCard(results);
-//     });
-// });
-
-
-// function renderCard(results) {
-//     for (var i = 0; i < gifLimit; i++) {
-//         src.push(results[i].images.fixed_height_still.url);
-//         stillURL.push(results[i].images.fixed_height_still.url);
-//         animeURL.push(results[i].images.fixed_height.url);
-//         title.push(results[i].title.toUpperCase());
-//         rating.push(results[i].rating.toUpperCase());
-//         var gifCard = $("<div>");
-//         gifCard.addClass('card border-success mb-3');
-//         gifCard.attr('style', 'max-width: 24rem;max-height: 20rem');
-//         var gifImg = $("<img>");
-//         gifImg.addClass("card-img-top gif");
-//         gifImg.attr("data-state", "still");
-//         var cardText = $("<div>");
-//         cardText.addClass("card-body");
-//         var h = $("<h5>");
-//         h.addClass('card-title');
-//         var p = $("<p>");
-//         p.addClass("card-text");
-//         gifImg.attr("src", src[i]);
-//         gifImg.attr("data-still", stillURL[i]);
-//         gifImg.attr("data-animate", animeURL[i]);
-//         h.text("Title: " + title[i]);
-//         p.text("Rating: " + rating[i]);
-//         cardText.append(h, p);
-//         gifCard.append(gifImg, cardText);
-//         $('#gifResults').prepend(gifCard);
-
-//     }
-
-// }
-
-
-
-// //----------Render Buttons Function----------------
-// function renderButtons(topics) {
-//     $("#button-view").empty();
-//     for (var i = 0; i < topics.length; i++) {
-//         var topic = topics[i].replace(" ", "");
-//         var gifURL = "//api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=" + gifApiKey + "&limit=" + gifLimit;
-//         var gifLi = $('<li>');
-//         var gifBut = $('<button>');
-
-//         gifBut.addClass("btn btn-outline-success btn-lg viewGIF");
-//         gifBut.attr("data-topic", topics[i]);
-//         gifBut.attr("data-url", gifURL);
-//         gifBut.attr("type", "submit");
-//         gifBut.attr("value", topics[i]);
-//         gifBut.text(topics[i].toUpperCase());
-//         gifLi.append(gifBut);
-//         $("#button-view").prepend(gifLi);
-//     }
-
-// }
-
-
-// //---------------Any Button Click Function--------------------
-// $(document).on('click','.viewGIF',function () {
-//     var gifURL = $(this).data('url');
-//    console.log($(this));
-//    console.log(gifURL);
-//     src = [];
-//     stillURL = [];
-//     animeURL = [];
-//     title = [];
-//     rating = [];
-//     $.ajax({
-//         url: gifURL,
-//         method: "GET"
-//     }).then(function (response) {
-//         var results = response.data;
-//         renderCard(results);
-//     });
-
-// });
-
-// //---------Initialize and Change State------------------
-// $(document).on("click", ".gif", function () {
-//     var state = $(this).attr("data-state");
-//     if (state === "still") {
-//         $(this).attr("src", $(this).attr("data-animate"));
-//         $(this).attr("data-state", "animate");
-//     } else {
-//         $(this).attr("src", $(this).attr("data-still"));
-//         $(this).attr("data-state", "still");
-//     }
-// });
-
-// renderButtons(topics);
 
 
 
