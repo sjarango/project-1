@@ -47,7 +47,7 @@ var opURL = 'https://pressfrom.info/upload/images/real/2018/11/16/nasa-confirms-
 var spURL = 'https://solarsystem.nasa.gov/system/content_pages/main_images/1068_rover2-1.jpg';
 
 var imgUrls = [cuURL, opURL, spURL];
-var rovDates = ['2019-09-18', '2017-06-09', '2008-02-09']
+var rovDates = ['2019-09-18', '2017-06-09', '2008-02-09'];
 
 var intro = 'https://api.nasa.gov/mars-photos/api/v1/manifests/';
 var names = [];
@@ -64,46 +64,45 @@ var cameras = ["fhaz", "navcam", "pancam", "entry", "rhaz"];
 var manifestParams = ["launch-date-", "land-date-", "max-date-", "solNum-", "totalPhot-"];
 
 
-getResponse(rovers);
+// getResponse(rovers);
+renderRovers(imgUrls);
+
+// function getResponse(rovers) {
+//     for (var k = 0; k < rovers.length; k++) {
+
+//         var nUrl = intro + rovers[k] + apiKey;
+//         console.log(nUrl);
+
+//         $.ajax({
+//             url: nUrl,
+//             method: "GET"
+//         }).then(function (response) {
+//             var name = response.photo_manifest.name;
+//             names.push(name);
+//             var landDate = response.photo_manifest.landing_date;
+//             landDates.push(landDate);
+//             var launchDate = response.photo_manifest.launch_date;
+//             launchDates.push(launchDate);
+//             var status = response.photo_manifest.status;
+//             stats.push(status);
+//             var maxSol = response.photo_manifest.max_sol;
+//             maxSols.push(maxSol);
+//             var maxDate = response.photo_manifest.max_date;
+//             maxDates.push(maxDate);
+//             var totalPhot = response.photo_manifest.total_photos;
+//             totalPhotos.push(totalPhot);
 
 
-function getResponse(rovers) {
-    for (var k = 0; k < rovers.length; k++) {
+//         });
 
-        var nUrl = intro + rovers[k] + apiKey;
-        console.log(nUrl);
+//     }
 
-        $.ajax({
-            url: nUrl,
-            method: "GET"
-        }).then(function (response) {
-            var name = response.photo_manifest.name;
-            names.push(name);
-            var landDate = response.photo_manifest.landing_date;
-            landDates.push(landDate);
-            var launchDate = response.photo_manifest.launch_date;
-            launchDates.push(launchDate);
-            var status = response.photo_manifest.status;
-            stats.push(status);
-            var maxSol = response.photo_manifest.max_sol;
-            maxSols.push(maxSol);
-            var maxDate = response.photo_manifest.max_date;
-            maxDates.push(maxDate);
-            var totalPhot = response.photo_manifest.total_photos;
-            totalPhotos.push(totalPhot);
-            
-
-        });
-       renderRovers(imgUrls);
-    }
-
-}
+// }
 
 function renderRovers(urls) {
-    var rCard = $('#rovercards')
+    var rCard = $('#rovercards');
     for (var i = 0; i < urls.length; i++) {
         //<!--Card Image-->
-
         var cardDiv = $('<div>');
         cardDiv.addClass('col-lg-4 col-md-12 mb-4 card');
         var oLayCard = $('<div>');
@@ -113,6 +112,7 @@ function renderRovers(urls) {
         roverImage.addClass('card-img-top');
         roverImage.attr('id', 'image-' + i);
         roverImage.attr('src', urls[i]);
+        roverImage.attr('style','height: 250px;width: 100%');
 
         var mask = $('<div>');
         mask.addClass('mask rgba-white-slight');
@@ -123,104 +123,116 @@ function renderRovers(urls) {
         var bodDiv = $('<div>');
         bodDiv.addClass('card-body');
         //<!--Title-->
-        var hTitle = $('<h4>');
+        var hTitle = $('<h3>');
         hTitle.addClass('card-title');
         hTitle.attr('id', 'rover-name-' + i);
-        hTitle.text('Rover: ' + names[i]);
-        var hStat = $('<h3>');
+        var hStat = $('<h4>');
         hStat.addClass('card-title');
         hStat.attr('id', 'status-' + i);
-        $('#status-' + i).text('Status: ' + stats[i]);
-        //<!--Text-->
         bodDiv.append(hTitle);
         bodDiv.append(hStat);
+        //<!--Text-->
         for (var j = 0; j < manifestParams.length; j++) {
             var pTag = $('<p>');
             pTag.addClass('card-text');
             pTag.attr('id', manifestParams[j] + i);
             bodDiv.append(pTag);
-
         }
-
-        $('#launch-date-' + i).text('Launch Date: ' + launchDates[i]);
-        $('#land-date-' + i).text('Landing Date: ' + landDates[i]);
-        $('#max-date-' + i).text('Max Date: ' + maxDates[i]);
-        $('#solNum-' + i).text('Total Sols: ' + maxSols[i]);
-        $('#totalPhot-' + i).text('Total # Photos: ' + totalPhotos[i]);
-
         cardDiv.append(bodDiv);
         rCard.append(cardDiv);
-
     }
 }
 
 
 
-console.log(landDates);
-console.log(launchDates);
-console.log(stats);
-console.log(maxSols);
-console.log(maxDates);
-console.log(totalPhotos);
+// var nUrl = intro + rovers[k] + apiKey;
 
-// $.ajax({
-//     url: curiosURL,
-//     method: "GET"
-// }).then(function (response) {
-//     var curioFhazImg = response.photos[0].img_src;
-//     var curioFhazTitle = response.photos[0].camera.full_name;
-//     var curioFhazEDate = response.photos[0].earth_date;
-//     var curioFhazRover = response.photos[0].rover.name;
-//     var curioFhazLaunch = response.photos[0].rover.launch_date;
-//     var curioFhazLanding = response.photos[0].rover.landing_date;
-//     $('#curiosity').attr('src', curioFhazImg);
-//     $('#curiosity-title').text(curioFhazTitle);
-//     $('#curiosity-EDate').text('Earth Date: ' + curioFhazEDate);
-//     $('#curiosity-Rover').text('Rover: ' + curioFhazRover);
-//     $('#curiosity-Launch').text('Launch Date: ' + curioFhazLaunch);
-//     $('#curiosity-Landing').text('Landing Date: ' + curioFhazLanding);
+$.ajax({
+    url: intro + rovers[0] + apiKey,
+    method: "GET"
+}).then(function (response) {
+    var name = response.photo_manifest.name;
+    // names.push(name);
+    var landDate = response.photo_manifest.landing_date;
+    // landDates.push(landDate);
+    var launchDate = response.photo_manifest.launch_date;
+    // launchDates.push(launchDate);
+    var status = response.photo_manifest.status;
+    // stats.push(status);
+    var maxSol = response.photo_manifest.max_sol;
+    // maxSols.push(maxSol);
+    var maxDate = response.photo_manifest.max_date;
+    // maxDates.push(maxDate);
+    var totalPhot = response.photo_manifest.total_photos;
+    // totalPhotos.push(totalPhot);
 
-// });
+    $('#rover-name-0').text('Rover: ' + name);
+    $('#status-0').text('Status: ' + status);
+    $('#launch-date-0').text('Launch Date: ' + launchDate);
+    $('#land-date-0').text('Landing Date: ' + landDate);
+    $('#max-date-0').text('Max Date: ' + maxDate);
+    $('#solNum-0').text('Total Sols: ' + maxSol);
+    $('#totalPhot-0').text('Total # Photos: ' + totalPhot);
 
-// $.ajax({
-//     url: opposURL,
-//     method: "GET"
-// }).then(function (response) {
-//     var oppoFhazImg = response.photos[0].img_src;
-//     console.log(oppoFhazImg);
-//     var oppoFhazTitle = response.photos[0].camera.full_name;
-//     var oppoFhazEDate = response.photos[0].earth_date;
-//     console.log(oppoFhazEDate);
-//     var oppoFhazRover = response.photos[0].rover.name;
-//     var oppoFhazLaunch = response.photos[0].rover.launch_date;
-//     var oppoFhazLanding = response.photos[0].rover.landing_date;
-//     $('#opportunity').attr('src', oppoFhazImg);
-//     $('#oppo-title').text(oppoFhazTitle);
-//     $('#oppo-EDate').text('Earth Date: ' + oppoFhazEDate);
-//     $('#oppo-Rover').text('Rover: ' + oppoFhazRover);
-//     $('#oppo-Launch').text('Launch Date: ' + oppoFhazLaunch);
-//     $('#oppo-Landing').text('Landing Date: ' + oppoFhazLanding);
-// });
+});
 
-// $.ajax({
-//     url: spiritURL,
-//     method: "GET"
-// }).then(function (response) {
-//     var spiritFhazImg = response.photos[0].img_src;
-//     console.log(spiritFhazImg);
-//     var spiritFhazTitle = response.photos[0].camera.full_name;
-//     var spiritFhazEDate = response.photos[0].earth_date;
-//     console.log(spiritFhazEDate);
-//     var spiritFhazRover = response.photos[0].rover.name;
-//     var spiritFhazLaunch = response.photos[0].rover.launch_date;
-//     var spiritFhazLanding = response.photos[0].rover.landing_date;
-//     $('#spirit').attr('src', spiritFhazImg);
-//     $('#spirit-title').text(spiritFhazTitle);
-//     $('#spirit-EDate').text('Earth Date: ' + spiritFhazEDate);
-//     $('#spirit-Rover').text('Rover: ' + spiritFhazRover);
-//     $('#spirit-Launch').text('Launch Date: ' + spiritFhazLaunch);
-//     $('#spirit-Landing').text('Landing Date: ' + spiritFhazLanding);
-// });
+$.ajax({
+    url: intro + rovers[1] + apiKey,
+    method: "GET"
+}).then(function (response) {
+    var name = response.photo_manifest.name;
+    // names.push(name);
+    var landDate = response.photo_manifest.landing_date;
+    // landDates.push(landDate);
+    var launchDate = response.photo_manifest.launch_date;
+    // launchDates.push(launchDate);
+    var status = response.photo_manifest.status;
+    // stats.push(status);
+    var maxSol = response.photo_manifest.max_sol;
+    // maxSols.push(maxSol);
+    var maxDate = response.photo_manifest.max_date;
+    // maxDates.push(maxDate);
+    var totalPhot = response.photo_manifest.total_photos;
+    // totalPhotos.push(totalPhot);
+
+    $('#rover-name-1').text('Rover: ' + name);
+    $('#status-1').text('Status: ' + status);
+    $('#launch-date-1').text('Launch Date: ' + launchDate);
+    $('#land-date-1').text('Landing Date: ' + landDate);
+    $('#max-date-1').text('Max Date: ' + maxDate);
+    $('#solNum-1').text('Total Sols: ' + maxSol);
+    $('#totalPhot-1').text('Total # Photos: ' + totalPhot);
+
+});
+
+$.ajax({
+    url: intro + rovers[2] + apiKey,
+    method: "GET"
+}).then(function (response) {
+    var name = response.photo_manifest.name;
+    // names.push(name);
+    var landDate = response.photo_manifest.landing_date;
+    // landDates.push(landDate);
+    var launchDate = response.photo_manifest.launch_date;
+    // launchDates.push(launchDate);
+    var status = response.photo_manifest.status;
+    // stats.push(status);
+    var maxSol = response.photo_manifest.max_sol;
+    // maxSols.push(maxSol);
+    var maxDate = response.photo_manifest.max_date;
+    // maxDates.push(maxDate);
+    var totalPhot = response.photo_manifest.total_photos;
+    // totalPhotos.push(totalPhot);
+
+    $('#rover-name-2').text('Rover: ' + name);
+    $('#status-2').text('Status: ' + status);
+    $('#launch-date-2').text('Launch Date: ' + launchDate);
+    $('#land-date-2').text('Landing Date: ' + landDate);
+    $('#max-date-2').text('Max Date: ' + maxDate);
+    $('#solNum-2').text('Total Sols: ' + maxSol);
+    $('#totalPhot-2').text('Total # Photos: ' + totalPhot);
+
+});
 
 var apod = moment().subtract(1, 'days').format('YYYY-MM-DD');
 
