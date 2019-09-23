@@ -4,31 +4,34 @@
 //     percentPosition: true,
 //     columnWidth: '.grid-sizer'
 //   });
-  
+
 //   // layout Masonry after each image loads
 //   $grid.imagesLoaded().progress( function() {
 //     $grid.masonry();
 //   });
 
-  // SETUP VARIABLES
+// SETUP VARIABLES
 
-  var apiKey = "&api_key=6ahnRsSlhvpPlehhB0fMzpoCmPoENxdPYX8NLcze";
+var apiKey = "&api_key=6ahnRsSlhvpPlehhB0fMzpoCmPoENxdPYX8NLcze";
 
-var sols = 0;
+var sol = "";
+var cam = $("#camera-select").val();
+
+
 //Note mardi is unique. only data on sol 100-curiosity
 
-var queryURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=2&camera=navcam" + apiKey;
+var queryURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?" + "sol=" + sol + "&camera=" + cam  + apiKey;
 
 // Counter to keep track of article numbers as they come in
 var articleCounter = 0;
 
 // FUNCTIONS
 // ==========================================================
-function rowNum(length){
-    if (length % 7 !== 0){
+function rowNum(length) {
+    if (length % 7 !== 0) {
         rows = Math.floor(length / 7) + 1;
     }
-    else{
+    else {
         rows = length % 7;
     }
 }
@@ -36,39 +39,41 @@ function rowNum(length){
 // (the number of articles to show and the final URL to download data from)
 
 
-  // The AJAX function uses the queryURL and GETS the JSON data associated with it.
-  // The data then gets stored in the variable called: "NYTData"
-
-  $.ajax({
-    url: queryURL,
+// The AJAX function uses the queryURL and GETS the JSON data associated with it.
+// The data then gets stored in the variable called: "NYTData"
+function searchPhotos(url){
+$.ajax({
+    url: url,
     method: "GET"
-  }).done(function(response) {
-
-    // Logging the URL so we have access to it for troubleshooting
-    console.log("------------------------------------");
-    console.log("URL: " + queryURL);
-    console.log("------------------------------------");
-
-    // Log the NYTData to console, where it will show up as an object
-    console.log(response);
-    console.log("------------------------------------");
-
+}).done(function (response) {
     var photos = response.photos.length;
-    console.log(photos);
+    if (photos!==0) {
+        for (i = 0; i < photos; i++) {
 
-   
-    for(i = 0 ; i < photos ; i++){
-        var src = response.photos[i].img_src;
-        var imgDiv = $('<div>').addClass('col-2');
-        var img = $('<img>');
-        img.attr('src',src);
-        img.attr('style','width:200px;');
-        imgDiv.append(img);
-        $('.row').append(imgDiv);
+            var src = response.photos[i].img_src;
+            var imgDiv = $('<div>').addClass('col-2');
+            var img = $('<img>');
+            img.attr('src', src);
+            img.attr('style', 'width:200px;');
+            imgDiv.append(img);
+            $('.row').append(imgDiv);
+    
+        }      
         
+    }
+    else {
+        var errDiv = $('<div>').addClass('col-6 text-center');
+        var hDiv = $('<h3>');
+        var hDiv2 = $('<h4>');
+        hDiv.text('No Images For This Selection');
+        hDiv2.text('Try A Different Sol, Date or Camera View');
+        errDiv.append(hDiv, hDiv2);
+
     }
 
 });
+}
+
     // // Loop through and provide the correct number of articles
     // for (var i = 0; i < numArticles; i++) {
 
@@ -120,41 +125,28 @@ function rowNum(length){
     //   console.log(NYTData.response.docs[i].section_name);
     //   console.log(NYTData.response.docs[i].web_url);
     // }
- 
 
 
 
 
 
-// // METHODS
-// // ==========================================================
+
+// METHODS ==========================================================
 
 // // on.("click") function associated with the Search Button
-// $("#run-search").on("click", function(event) {
-//   // This line allows us to take advantage of the HTML "submit" property
-//   // This way we can hit enter on the keyboard and it registers the search
-//   // (in addition to clicks).
-//   event.preventDefault();
+$("#run-search").on("click", function(event) {
+   event.preventDefault();
 
-//   // Initially sets the articleCounter to 0
-//   articleCounter = 0;
 
-//   // Empties the region associated with the articles
-//   $("#well-section").empty();
+  $(".row").empty();
 
-//   // Grabbing text the user typed into the search input
-//   searchTerm = $("#search-term").val().trim();
-//   var searchURL = queryURL + searchTerm;
+// Grabbing text the user typed into the search input
+  sol = $('#sol').val();
+  cam = $("#camera-select").val();
 
-//   // Number of results the user would like displayed
-//   numResults = $("#num-records-select").val();
-
-//   // Start Year
-//   startYear = $("#start-year").val().trim();
-
-//   // End Year
-//   endYear = $("#end-year").val().trim();
-
+  var searchURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?" + "sol=" + sol + "&camera=" + cam  + apiKey;
+  searchPhotos(searchURL);
+});
 //   // If the user provides a startYear -- the startYear will be included in the queryURL
 //   if (parseInt(startYear)) {
 //     searchURL = searchURL + "&begin_date=" + startYear + "0101";
@@ -175,3 +167,14 @@ function rowNum(length){
 //   articleCounter = 0;
 //   $("#well-section").empty();
 // });
+
+
+
+//   // Number of results the user would like displayed
+//   numResults = $("#num-records-select").val();
+
+//   // Start Year
+//   startYear = $("#start-year").val().trim();
+
+//   // End Year
+//   endYear = $("#end-year").val().trim();
