@@ -60,12 +60,13 @@ var totalPhotos = [];
 var SOcams = ["fhaz","rhaz","navcam","pancam","minites"];
 var CUcams = ["fhaz","rhaz","mast","chemcam","mardi","mahli","navcam"];
 var cams = [];
+var camys=[];
 var rovers = ["Curiosity", "Opportunity", "Spirit"];
 var roversA = [];
-var cameras = [];
+
 var manifestParams = ["launch-date-", "land-date-", "max-date-", "solNum-", "totalPhot-"];
 var sol = [];
-
+var numFots= [];
 
 // getResponse(rovers);
 renderRovers(imgUrls);
@@ -205,9 +206,9 @@ $.ajax({
     $('#totalPhot-2').text('Total # Photos: ' + totalPhot);
     for (var b = 0; b < maxSol;b++){
         if (response.photo_manifest.photos[b].cameras !== "null"){
-            var cameras = response.photo_manifest.photos[b].cameras;
+            var camys = response.photo_manifest.photos[b].cameras;
             var sols = response.photo_manifest.photos[b].sol;
-            cams.push(cameras);
+            cams.push(camys);
             sol.push(sols);
             
 
@@ -216,18 +217,19 @@ $.ajax({
     }
 });
 
-for (var g = 0; g < sol.length;g++){
-    for (h = 0; h < cam[g].length ; h++){
-var searchURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rovers[0] + "/photos?" + "sol=" + sol[g] + "&camera=" + cams[g][h] + apiKey;
+
+for (var g = 0; g < sol.length; g++){
+    
+var newURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rovers[0] + "/photos?" + "sol=" + sol[g] + "&camera=" + cams[0] + apiKey;
 
 $.ajax({
-    url: searchURL,
+    url: newURL,
     method: "GET"
-}).then(function (response) {
-    
+}).then(function (repo) {
+    console.log(repo.photos.length);
 });
 }
-}
+
 
 //-----Moment.js used to standardize date format-----------
 var apod = moment().subtract(1, 'days').format('YYYY-MM-DD');
