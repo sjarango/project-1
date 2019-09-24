@@ -57,11 +57,14 @@ var stats = [];
 var maxSols = [];
 var maxDates = [];
 var totalPhotos = [];
-
+var SOcams = ["fhaz","rhaz","navcam","pancam","minites"];
+var CUcams = ["fhaz","rhaz","mast","chemcam","mardi","mahli","navcam"];
+var cams = [];
 var rovers = ["Curiosity", "Opportunity", "Spirit"];
 var roversA = [];
-var cameras = ["fhaz", "navcam", "pancam", "entry", "rhaz"];
+var cameras = [];
 var manifestParams = ["launch-date-", "land-date-", "max-date-", "solNum-", "totalPhot-"];
+var sol = [];
 
 
 // getResponse(rovers);
@@ -192,7 +195,7 @@ $.ajax({
     // maxDates.push(maxDate);
     var totalPhot = response.photo_manifest.total_photos;
     // totalPhotos.push(totalPhot);
-
+    
     $('#rover-name-2').text('Rover: ' + name);
     $('#status-2').text('Status: ' + status);
     $('#launch-date-2').text('Launch Date: ' + launchDate);
@@ -200,8 +203,31 @@ $.ajax({
     $('#max-date-2').text('Max Date: ' + maxDate);
     $('#solNum-2').text('Total Sols: ' + maxSol);
     $('#totalPhot-2').text('Total # Photos: ' + totalPhot);
+    for (var b = 0; b < maxSol;b++){
+        if (response.photo_manifest.photos[b].cameras !== "null"){
+            var cameras = response.photo_manifest.photos[b].cameras;
+            var sols = response.photo_manifest.photos[b].sol;
+            cams.push(cameras);
+            sol.push(sols);
+            
 
+        }
+
+    }
 });
+
+for (var g = 0; g < sol.length;g++){
+    for (h = 0; h < cam[g].length ; h++){
+var searchURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rovers[0] + "/photos?" + "sol=" + sol[g] + "&camera=" + cams[g][h] + apiKey;
+
+$.ajax({
+    url: searchURL,
+    method: "GET"
+}).then(function (response) {
+    
+});
+}
+}
 
 //-----Moment.js used to standardize date format-----------
 var apod = moment().subtract(1, 'days').format('YYYY-MM-DD');

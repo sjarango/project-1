@@ -58,7 +58,7 @@ function searchPhotos(url) {
         if (photos !== 0) {
             for (i = 0; i < photos; i++) {
                 var src = response.photos[i].img_src;
-                var imgDiv = $('<div>')
+                var imgDiv = $('<div>');
                 if (i == 0) {
                     imgDiv.addClass('carousel-item active');
                     addImage(src,imgDiv);
