@@ -57,16 +57,17 @@ var stats = [];
 var maxSols = [];
 var maxDates = [];
 var totalPhotos = [];
-var SOcams = ["fhaz","rhaz","navcam","pancam","minites"];
-var CUcams = ["fhaz","rhaz","mast","chemcam","mardi","mahli","navcam"];
+var SOcams = ["fhaz", "rhaz", "navcam", "pancam", "minites"];
+var CUcams = ["fhaz", "rhaz", "mast", "chemcam", "mardi", "mahli", "navcam"];
 var cams = [];
-var camys=[];
+var camys = [];
 var rovers = ["Curiosity", "Opportunity", "Spirit"];
 var roversA = [];
 
 var manifestParams = ["launch-date-", "land-date-", "max-date-", "solNum-", "totalPhot-"];
-var sol = [];
-var numFots= [];
+var solSpir = [];
+var solSpir = []
+var numFots = [];
 
 // getResponse(rovers);
 renderRovers(imgUrls);
@@ -85,7 +86,7 @@ function renderRovers(urls) {
         roverImage.addClass('card-img-top');
         roverImage.attr('id', 'image-' + i);
         roverImage.attr('src', urls[i]);
-        roverImage.attr('style','height: 250px;width: 100%');
+        roverImage.attr('style', 'height: 250px;width: 100%');
 
         var mask = $('<div>');
         mask.addClass('mask rgba-white-slight');
@@ -195,8 +196,9 @@ $.ajax({
     var maxDate = response.photo_manifest.max_date;
     // maxDates.push(maxDate);
     var totalPhot = response.photo_manifest.total_photos;
-    // totalPhotos.push(totalPhot);
-    
+    var solLength = response.photo_manifest.photos.length;
+    numFots.push(solLength);
+
     $('#rover-name-2').text('Rover: ' + name);
     $('#status-2').text('Status: ' + status);
     $('#launch-date-2').text('Launch Date: ' + launchDate);
@@ -204,31 +206,62 @@ $.ajax({
     $('#max-date-2').text('Max Date: ' + maxDate);
     $('#solNum-2').text('Total Sols: ' + maxSol);
     $('#totalPhot-2').text('Total # Photos: ' + totalPhot);
-    for (var b = 0; b < maxSol;b++){
-        if (response.photo_manifest.photos[b].cameras !== "null"){
-            var camys = response.photo_manifest.photos[b].cameras;
-            var sols = response.photo_manifest.photos[b].sol;
-            cams.push(camys);
-            sol.push(sols);
-            
 
-        }
+    for (var b = 0; b < solLength; b++) {
+
+        var camys = response.photo_manifest.photos[b].cameras;
+        var sols = response.photo_manifest.photos[b].sol;
+        cams.push(camys);
+        solSpir.push(sols);
+
 
     }
 });
+binString();
+// var newUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rover + "/photos?" + "sol=" + d + "&camera=" + SOcams[d] + apiKey;
 
-
-for (var g = 0; g < sol.length; g++){
+function binString() {
     
-var newURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rovers[0] + "/photos?" + "sol=" + sol[g] + "&camera=" + cams[0] + apiKey;
+    var fhazBin = [];
+    for (var s = 0; s < numFots[0]; s++) {
+        var x;
+        if (cams[s].includes('FHAZ') === true) {
+            x = 1;
 
-$.ajax({
-    url: newURL,
-    method: "GET"
-}).then(function (repo) {
-    console.log(repo.photos.length);
-});
+        }
+        else {
+            x = 0;
+        }
+        
+        fhazBin.push(x);
+    }
+    console.log(fhazBin);
+
+    return fhazBin;
 }
+
+// 
+// var camInput = $('#input-box').val();
+// if (camInput == 'FHAZ') {
+//     var sols = 
+
+//                         break;
+//                     case 'RHAZ':
+//     rhazCount++;
+//     break;
+//                     case 'NAVCAM':
+//     navcamCount++;
+//     break;
+//                     case 'PANCAM':
+//     pancamCount++;
+//     break;
+//                     case 'MINITES':
+//     minitesCount++;
+//     break;
+// }
+
+//             });
+//     }
 
 
 //-----Moment.js used to standardize date format-----------
@@ -245,7 +278,7 @@ $.ajax({
     var apodImg = response.url;
     var apodExpl = response.explanation;
     var apodTitle = response.title;
-    $("#intro").css('background', 'url(' + apodImg + ')no-repeat center center fixed' );
+    $("#intro").css('background', 'url(' + apodImg + ')no-repeat center center fixed');
     $('#apod').attr('src', apodImg);
     $('#apodExpl').text(apodExpl);
     $('#apodTitle').text(apodTitle);
