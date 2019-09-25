@@ -48,26 +48,16 @@ var spURL = 'https://solarsystem.nasa.gov/system/content_pages/main_images/1068_
 
 var imgUrls = [cuURL, opURL, spURL];
 var rovDates = ['2019-09-18', '2017-06-09', '2008-02-09'];
-
+var rovers = ["Curiosity", "Opportunity", "Spirit"];
 var intro = 'https://api.nasa.gov/mars-photos/api/v1/manifests/';
-var names = [];
-var landDates = [];
-var launchDates = [];
-var stats = [];
-var maxSols = [];
-var maxDates = [];
-var totalPhotos = [];
+
+
 var SOcams = ["fhaz", "rhaz", "navcam", "pancam", "minites"];
 var CUcams = ["fhaz", "rhaz", "mast", "chemcam", "mardi", "mahli", "navcam"];
-var cams = [];
-var camys = [];
-var rovers = ["Curiosity", "Opportunity", "Spirit"];
+
 var roversA = [];
 
 var manifestParams = ["launch-date-", "land-date-", "max-date-", "solNum-", "totalPhot-"];
-var solSpir = [];
-var solSpir = []
-var numFots = [];
 
 // getResponse(rovers);
 renderRovers(imgUrls);
@@ -117,152 +107,40 @@ function renderRovers(urls) {
     }
 }
 
+var i;
 
 
-// var nUrl = intro + rovers[k] + apiKey;
-
-$.ajax({
-    url: intro + rovers[0] + apiKey,
-    method: "GET"
-}).then(function (response) {
-    var name = response.photo_manifest.name;
-    // names.push(name);
-    var landDate = response.photo_manifest.landing_date;
-    // landDates.push(landDate);
-    var launchDate = response.photo_manifest.launch_date;
-    // launchDates.push(launchDate);
-    var status = response.photo_manifest.status;
-    // stats.push(status);
-    var maxSol = response.photo_manifest.max_sol;
-    // maxSols.push(maxSol);
-    var maxDate = response.photo_manifest.max_date;
-    // maxDates.push(maxDate);
-    var totalPhot = response.photo_manifest.total_photos;
-    // totalPhotos.push(totalPhot);
-
-    $('#rover-name-0').text('Rover: ' + name);
-    $('#status-0').text('Status: ' + status);
-    $('#launch-date-0').text('Launch Date: ' + launchDate);
-    $('#land-date-0').text('Landing Date: ' + landDate);
-    $('#max-date-0').text('Max Date: ' + maxDate);
-    $('#solNum-0').text('Total Sols: ' + maxSol);
-    $('#totalPhot-0').text('Total # Photos: ' + totalPhot);
-
-});
-
-$.ajax({
-    url: intro + rovers[1] + apiKey,
-    method: "GET"
-}).then(function (response) {
-    var name = response.photo_manifest.name;
-    // names.push(name);
-    var landDate = response.photo_manifest.landing_date;
-    // landDates.push(landDate);
-    var launchDate = response.photo_manifest.launch_date;
-    // launchDates.push(launchDate);
-    var status = response.photo_manifest.status;
-    // stats.push(status);
-    var maxSol = response.photo_manifest.max_sol;
-    // maxSols.push(maxSol);
-    var maxDate = response.photo_manifest.max_date;
-    // maxDates.push(maxDate);
-    var totalPhot = response.photo_manifest.total_photos;
-    // totalPhotos.push(totalPhot);
-
-    $('#rover-name-1').text('Rover: ' + name);
-    $('#status-1').text('Status: ' + status);
-    $('#launch-date-1').text('Launch Date: ' + launchDate);
-    $('#land-date-1').text('Landing Date: ' + landDate);
-    $('#max-date-1').text('Max Date: ' + maxDate);
-    $('#solNum-1').text('Total Sols: ' + maxSol);
-    $('#totalPhot-1').text('Total # Photos: ' + totalPhot);
-
-});
-
-$.ajax({
-    url: intro + rovers[2] + apiKey,
-    method: "GET"
-}).then(function (response) {
-    var name = response.photo_manifest.name;
-    // names.push(name);
-    var landDate = response.photo_manifest.landing_date;
-    // landDates.push(landDate);
-    var launchDate = response.photo_manifest.launch_date;
-    // launchDates.push(launchDate);
-    var status = response.photo_manifest.status;
-    // stats.push(status);
-    var maxSol = response.photo_manifest.max_sol;
-    // maxSols.push(maxSol);
-    var maxDate = response.photo_manifest.max_date;
-    // maxDates.push(maxDate);
-    var totalPhot = response.photo_manifest.total_photos;
-    var solLength = response.photo_manifest.photos.length;
-    numFots.push(solLength);
-
-    $('#rover-name-2').text('Rover: ' + name);
-    $('#status-2').text('Status: ' + status);
-    $('#launch-date-2').text('Launch Date: ' + launchDate);
-    $('#land-date-2').text('Landing Date: ' + landDate);
-    $('#max-date-2').text('Max Date: ' + maxDate);
-    $('#solNum-2').text('Total Sols: ' + maxSol);
-    $('#totalPhot-2').text('Total # Photos: ' + totalPhot);
-
-    for (var b = 0; b < solLength; b++) {
-
-        var camys = response.photo_manifest.photos[b].cameras;
-        var sols = response.photo_manifest.photos[b].sol;
-        cams.push(camys);
-        solSpir.push(sols);
+maniFest(rovers);
 
 
-    }
-});
-binString();
-// var newUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rover + "/photos?" + "sol=" + d + "&camera=" + SOcams[d] + apiKey;
+//-----Global variables used in function maniFest-----//
 
-function binString() {
+var roverFest = [];
+var fotos =[];
+
+function maniFest(roverarray){
+for (var i = 0; i < roverarray.length ; i++){
     
-    var fhazBin = [];
-    for (var s = 0; s < numFots[0]; s++) {
-        var x;
-        if (cams[s].includes('FHAZ') === true) {
-            x = 1;
+$.ajax({
+    url: intro + roverarray[i] + apiKey,
+    method: "GET",
+}).then( function (response) {
+    var manifest = response.photo_manifest;
+    var photos = response.photo_manifest.photos;
+    roverFest.push(manifest);
+    fotos.push(photos);
 
-        }
-        else {
-            x = 0;
-        }
-        
-        fhazBin.push(x);
-    }
-    console.log(fhazBin);
+    $('#rover-name-' + i).text('Rover: ' + name);
+    $('#status-' + i).text('Status: ' + status);
+    $('#launch-date-' + i).text('Launch Date: ' + launchDate);
+    $('#land-date-' + i).text('Landing Date: ' + landDate);
+    $('#max-date-' + i).text('Max Date: ' + maxDate);
+    $('#solNum-' + i).text('Total Sols: ' + maxSol);
+    $('#totalPhot-' + i).text('Total # Photos: ' + totalPhot);
 
-    return fhazBin;
+});
 }
-
-// 
-// var camInput = $('#input-box').val();
-// if (camInput == 'FHAZ') {
-//     var sols = 
-
-//                         break;
-//                     case 'RHAZ':
-//     rhazCount++;
-//     break;
-//                     case 'NAVCAM':
-//     navcamCount++;
-//     break;
-//                     case 'PANCAM':
-//     pancamCount++;
-//     break;
-//                     case 'MINITES':
-//     minitesCount++;
-//     break;
-// }
-
-//             });
-//     }
-
+}
 
 //-----Moment.js used to standardize date format-----------
 var apod = moment().subtract(1, 'days').format('YYYY-MM-DD');
