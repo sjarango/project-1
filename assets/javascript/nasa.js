@@ -111,7 +111,7 @@ var i;
 
 
 maniFest(rovers);
-
+// popCard(rovers);
 
 //-----Global variables used in function maniFest-----//
 
@@ -124,21 +124,26 @@ for (var i = 0; i < roverarray.length ; i++){
 $.ajax({
     url: intro + roverarray[i] + apiKey,
     method: "GET",
+    complete: popCard(rovers),
 }).then( function (response) {
     var manifest = response.photo_manifest;
     var photos = response.photo_manifest.photos;
     roverFest.push(manifest);
     fotos.push(photos);
-
-    $('#rover-name-' + i).text('Rover: ' + name);
-    $('#status-' + i).text('Status: ' + status);
-    $('#launch-date-' + i).text('Launch Date: ' + launchDate);
-    $('#land-date-' + i).text('Landing Date: ' + landDate);
-    $('#max-date-' + i).text('Max Date: ' + maxDate);
-    $('#solNum-' + i).text('Total Sols: ' + maxSol);
-    $('#totalPhot-' + i).text('Total # Photos: ' + totalPhot);
-
+//--------Needs Firebase here------------//
 });
+}
+}
+
+function popCard(roverarray){
+    for (var k = 0;k < roverarray.length;k++){
+    $('#rover-name-' + i).text('Rover: ' + roverFest[i].name);
+    $('#status-' + i).text('Status: ' + roverFest[i].status);
+    $('#launch-date-' + i).text('Launch Date: ' + roverFest[i].launch_date);
+    $('#land-date-' + i).text('Landing Date: ' + roverFest[i].landing_date);
+    $('#max-date-' + i).text('Max Date: ' + roverFest[i].max_date);
+    $('#solNum-' + i).text('Total Sols: ' + roverFest[i].max_sol);
+    $('#totalPhot-' + i).text('Total # Photos: ' + roverFest[i].total_photos);
 }
 }
 
