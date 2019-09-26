@@ -107,45 +107,80 @@ function renderRovers(urls) {
     }
 }
 
-var i;
 
 
-maniFest(rovers);
-// popCard(rovers);
+
 
 //-----Global variables used in function maniFest-----//
 
 var roverFest = [];
-var fotos =[];
-
-function maniFest(roverarray){
-for (var i = 0; i < roverarray.length ; i++){
-    
-$.ajax({
-    url: intro + roverarray[i] + apiKey,
-    method: "GET",
-    complete: popCard(rovers),
-}).then( function (response) {
+var fotos = [];
+var promise1 = $.ajax({
+    url: intro + rovers[0] + apiKey,
+    method: "GET"
+}).then(function (response) {
     var manifest = response.photo_manifest;
     var photos = response.photo_manifest.photos;
     roverFest.push(manifest);
     fotos.push(photos);
-//--------Needs Firebase here------------//
 });
-}
+
+var promise2 = $.ajax({
+    url: intro + rovers[1] + apiKey,
+    method: "GET"
+}).then(function (response) {
+    var manifest = response.photo_manifest;
+    var photos = response.photo_manifest.photos;
+    roverFest.push(manifest);
+    fotos.push(photos);
+});
+
+var promise3 = $.ajax({
+    url: intro + rovers[2] + apiKey,
+    method: "GET"
+}).then(function (response) {
+    var manifest = response.photo_manifest;
+    var photos = response.photo_manifest.photos;
+    roverFest.push(manifest);
+    fotos.push(photos);
+});
+
+
+
+
+
+
+
+
+function popCard (roverarray){
+    
+    for (var k = 0; k < roverarray.length; k++) {
+        $('#rover-name-' + k).text('Rover: ' + roverFest[k].name);
+        $('#status-' + k).text('Status: ' + roverFest[k].status);
+        $('#launch-date-' + k).text('Launch Date: ' + roverFest[k].launch_date);
+        $('#land-date-' + k).text('Landing Date: ' + roverFest[k].landing_date);
+        $('#max-date-' + k).text('Max Date: ' + roverFest[k].max_date);
+        $('#solNum-' + k).text('Total Sols: ' + roverFest[k].max_sol);
+        $('#totalPhot-' + k).text('Total # Photos: ' + roverFest[k].total_photos);
+    }
 }
 
-function popCard(roverarray){
-    for (var k = 0;k < roverarray.length;k++){
-    $('#rover-name-' + i).text('Rover: ' + roverFest[i].name);
-    $('#status-' + i).text('Status: ' + roverFest[i].status);
-    $('#launch-date-' + i).text('Launch Date: ' + roverFest[i].launch_date);
-    $('#land-date-' + i).text('Landing Date: ' + roverFest[i].landing_date);
-    $('#max-date-' + i).text('Max Date: ' + roverFest[i].max_date);
-    $('#solNum-' + i).text('Total Sols: ' + roverFest[i].max_sol);
-    $('#totalPhot-' + i).text('Total # Photos: ' + roverFest[i].total_photos);
-}
-}
+
+Promise.all([promise1, promise2, promise3]).then(function (response) {
+    console.log(roverFest);
+    console.log(fotos);
+    popCard(rovers);
+        // var maniFest1 = response[0].photo_manifest;
+        // var maniFest2 = response[1].photo_manifest;
+        // var maniFest3 = response[2].photo_manifest;
+        
+        sessionStorage.setItem("manifest", JSON.stringify(roverFest));
+        sessionStorage.setItem("fotos", JSON.stringify(fotos));
+        // sessionStorage.setItem("manifest2", JSON.stringify(maniFest2));
+        // sessionStorage.setItem("manifest3", JSON.stringify(maniFest3));
+    
+});
+
 
 //-----Moment.js used to standardize date format-----------
 var apod = moment().subtract(1, 'days').format('YYYY-MM-DD');
