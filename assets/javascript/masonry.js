@@ -23,14 +23,14 @@ function rowNum(length) {
 // This runQuery function expects two parameters:
 // (the number of articles to show and the final URL to download data from)
 
-function addImage(src,imgDiv){
-   
+function addImage(src, imgDiv) {
+
     var img = $('<img>');
     img.addClass('d-block');
     img.attr('src', src);
     imgDiv.append(img);
     $('#images').append(imgDiv);
-    }
+}
 // The AJAX function uses the queryURL and GETS the JSON data associated with it.
 // The data then gets stored in the variable called: "NYTData"
 function searchPhotos(url) {
@@ -38,23 +38,23 @@ function searchPhotos(url) {
         url: url,
         method: "GET"
     }).done(function (response) {
-       
+
         var photos = response.photos.length;
-  
-            for (i = 0; i < photos; i++) {
-                var src = response.photos[i].img_src;
-                var imgDiv = $('<div>');
-                if (i == 0) {
-                    imgDiv.addClass('carousel-item active col-6');
-                    addImage(src,imgDiv);
-                   
-                }
-                else {
-                    imgDiv.addClass('carousel-item col-6');
-                    addImage(src,imgDiv);
-                    
-                }
+
+        for (i = 0; i < photos; i++) {
+            var src = response.photos[i].img_src;
+            var imgDiv = $('<div>');
+            if (i == 0) {
+                imgDiv.addClass('carousel-item active col-6');
+                addImage(src, imgDiv);
+
             }
+            else {
+                imgDiv.addClass('carousel-item col-6');
+                addImage(src, imgDiv);
+
+            }
+        }
 
 
     });
@@ -75,47 +75,29 @@ $("#run-search").on("click", function (event) {
     rov = $("#rov").val();
 
     var searchURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rov + "/photos?" + "earth_date=" + eDate + "&camera=" + cam + apiKey;
-   searchPhotos(searchURL);
+    
+    
+    searchPhotos(searchURL);
 
 });
 
+$('#camera-select').on('change',function (){camDates(rov,cam);});
 
-// function calenDar (rov,cam) {
-//     $('#datetimepicker6').datetimepicker({
-//         defaultDate: enabledDates[r].cameras[cam][0],
-//         enabledDates: enabledDates[r].cameras[cam]
-//     });
-// }
+function camDates(rov, cam) {
+    switch (rov) {
+        case enabledDates[0].roverName:
+            r = 0;
+            break;
+        case enabledDates[1].roverName:
+            r = 1;
+            break;
+        case enabledDates[2].roverName:
+            r = 2;
+            break;
 
-
-//   // If the user provides a startYear -- the startYear will be included in the queryURL
-//   if (parseInt(startYear)) {
-//     searchURL = searchURL + "&begin_date=" + startYear + "0101";
-//   }
-
-//   // If the user provides a startYear -- the endYear will be included in the queryURL
-//   if (parseInt(endYear)) {
-//     searchURL = searchURL + "&end_date=" + endYear + "0101";
-//   }
-
-//   // Then we will pass the final searchURL and the number of results to
-//   // include to the runQuery function
-//   runQuery(numResults, searchURL);
-// });
-
-// // This button clears the top articles section
-// $("#clear-all").on("click", function() {
-//   articleCounter = 0;
-//   $("#well-section").empty();
-// });
-
-
-
-//   // Number of results the user would like displayed
-//   numResults = $("#num-records-select").val();
-
-//   // Start Year
-//   startYear = $("#start-year").val().trim();
-
-//   // End Year
-//   endYear = $("#end-year").val().trim();
+    }
+    $('#datetimepicker6').datetimepicker({
+        defaultDate: enabledDates[r].cameras[cam][0],
+        enabledDates: enabledDates[r].cameras[cam]
+    });
+}
