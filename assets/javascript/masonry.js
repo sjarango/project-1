@@ -138,34 +138,41 @@ $('#datetimepicker6').datetimepicker({
 
 function camPair(){
     $('#camera-select').empty();
-    if ($('#rov').val() == roverPull[0].name) {
+    if ($('#rov').val() == enabledDates[0].roverName.toLowerCase()) {
         r = 0;
-        sessionStorage.setItem('roverObj', JSON.stringify(enabledDates[0]));
-        console.log(JSON.stringify(sessionStorage.rovObj));
+        console.log('r: ' + r);
+        console.log('object:' + enabledDates[0].roverName.toLowerCase());
+        console.log('input value:' + $('#rov').val());
     }
-    else if ($('#rov').val() == roverPull[1].name) {
+    else if ($('#rov').val() == enabledDates[1].roverName.toLowerCase()) {
         r = 1;
-        sessionStorage.setItem('roverObj', JSON.stringify(enabledDates[1]));
-        console.log(JSON.stringify(sessionStorage.rovObj));
+        console.log('r: ' + r);
+        console.log('object:' + enabledDates[1].roverName.toLowerCase());
+        console.log('input value:' + $('#rov').val());
     }
     else {
         r = 2;
-        sessionStorage.setItem('roverObj', JSON.stringify(enabledDates[2]));
-        console.log(JSON.stringify(sessionStorage.rovObj));
+        console.log('r: ' + r);
+        console.log('object:' + enabledDates[2].roverName.toLowerCase());
+        console.log('input value:' + $('#rov').val());
     }
+
     var camL = Object.keys(enabledDates[r].cameras).length;
     var keyS = Object.keys(enabledDates[r].cameras);
-        for (var e = 0; e < camL; e++) {
-            var camy = keyS[e];
-            if (enabledDates[r].cameras[camy].length !== 0) {
-                rovCams.push(camy);
-            }
-        }
+        console.log(camL);
+        console.log(keyS);    
+    
+    // for (var e = 0; e < camL; e++) {
+        //     var camy = keyS[e];
+        //     if (enabledDates[r].cameras[camy].length !== 0) {
+        //         rovCams.push(camy);
+        //     }
+        // }
         
-        for (var h = 0; h < rovCams.length; h++) {
-            var opt = $('<option>');
-            opt.attr('value', rovCams[h]);
-            opt.text(rovCams[h]);
-            $('#camera-select').append(opt);
-        }
+        // for (var h = 0; h < rovCams.length; h++) {
+        //     var opt = $('<option>');
+        //     opt.attr('value', rovCams[h]);
+        //     opt.text(rovCams[h]);
+        //     $('#camera-select').append(opt);
+        // }
 }
