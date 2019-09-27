@@ -26,9 +26,8 @@ function rowNum(length) {
 function addImage(src,imgDiv){
    
     var img = $('<img>');
-    img.addClass('d-block w-100');
+    img.addClass('d-block');
     img.attr('src', src);
-    img.attr('style', 'width:200px;');
     imgDiv.append(img);
     $('#images').append(imgDiv);
     }
@@ -46,12 +45,12 @@ function searchPhotos(url) {
                 var src = response.photos[i].img_src;
                 var imgDiv = $('<div>');
                 if (i == 0) {
-                    imgDiv.addClass('carousel-item active');
+                    imgDiv.addClass('carousel-item active col-6');
                     addImage(src,imgDiv);
                    
                 }
                 else {
-                    imgDiv.addClass('carousel-item');
+                    imgDiv.addClass('carousel-item col-6');
                     addImage(src,imgDiv);
                     
                 }
