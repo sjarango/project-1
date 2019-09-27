@@ -1,51 +1,65 @@
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-<!-- Bootstrap core CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-<!-- Material Design Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/nasa_style.css">
-<div class="container-fluid">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="assets/css/nasa_style.css">
+
+    <div class="container-fluid">
     <form>
-        <div class="row">
-            <div class="col-4 form-group">
-                <label for="sol">Sol (Martian Day):</label>
-                <input type="text" class="form-control" id="sol">
-            </div>
 
-            <div class="col-2 form-group">
-                <label for="cam">Camera</label>
-                <select class="form-control" id="camera-select">
-                    <option value="FHAZ">FHAZ</option>
-                    <option value="RHAZ">RHAZ</option>
-                    <!-- Setting the option for 5 as default -->
-                    <option value="MAST" selected="">MAST</option>
-                    <option value="CHEMCAM">CHEMCAM</option>
-                    <option value="MAHLI">MAHLI</option>
-                    <option value="MARDI">MARDI</option>
-                    <option value="NAVCAM">NAVCAM</option>
-                    <option value="NAVCAM">PANCAM</option>
-                </select>
-            </div>
-            <div class="col-3 form-group">
-                <label for="rov">Rover</label>
-                <select class="form-control" id="rov">
-                    <option value="curiosity">Curiosity</option>
-                    <option value="opportunity">Opportunity</option>
-                    <!-- Setting the option for 5 as default -->
-                    <option value="spirit" selected="">Spirit</option>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="input-group date" id="datetimepicker6" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input"
+                                data-target="#datetimepicker6" />
+                            <div class="input-group-append" data-target="#datetimepicker6" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                </select>
+
+                
             </div>
-            <div class="col-2 form-group">
-                <button type="submit" class="btn btn-default" id="run-search"><i class="fa fa-search"></i>
-                    Search</button>
-            </div>
+        
         </div>
-    </form>
+        <div class="col-2 form-group">
+            <label for="cam">Camera</label>
+            <select class="form-control" id="camera-select">
+                <option value="FHAZ">FHAZ</option>
+                <option value="RHAZ">RHAZ</option>
+                <!-- Setting the option for 5 as default -->
+                <option value="MAST" selected="">MAST</option>
+                <option value="CHEMCAM">CHEMCAM</option>
+                <option value="MAHLI">MAHLI</option>
+                <option value="MARDI">MARDI</option>
+                <option value="NAVCAM">NAVCAM</option>
+                <option value="NAVCAM">PANCAM</option>
+            </select>
+        </div>
+        <div class="col-3 form-group">
+            <label for="rov">Rover</label>
+            <select class="form-control" id="rov">
+                <option value="curiosity">Curiosity</option>
+                <option value="opportunity">Opportunity</option>
+                <!-- Setting the option for 5 as default -->
+                <option value="spirit" selected="">Spirit</option>
+
+            </select>
+        </div>
+        <div class="col-2 form-group">
+            <button type="submit" class="btn btn-default" id="run-search"><i class="fa fa-search"></i>
+                Search</button>
+        </div>
 </div>
-<div id="carouselExampleControls" class="carousel slide" >
-    <div class="carousel-inner" id="images" >
+</form>
+</div>
+<div id="carouselExampleControls" class="carousel slide">
+    <div class="carousel-inner" id="images">
 
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -57,14 +71,17 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<!-- JQuery -->
+<!---Script CDNs-->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.0/umd/popper.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+<script type="text/javascript" src="assets/javascript/nasa.js"></script>
 <script type="text/javascript" src="assets/javascript/masonry.js"></script>
+<script type="text/javascript">
+    
+ 
+</script>

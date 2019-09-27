@@ -51,7 +51,6 @@ var rovDates = ['2019-09-18', '2017-06-09', '2008-02-09'];
 var rovers = ["Curiosity", "Opportunity", "Spirit"];
 var intro = 'https://api.nasa.gov/mars-photos/api/v1/manifests/';
 
-
 var SOcams = ["fhaz", "rhaz", "navcam", "pancam", "minites"];
 var CUcams = ["fhaz", "rhaz", "mast", "chemcam", "mardi", "mahli", "navcam"];
 
@@ -152,8 +151,8 @@ var promise3 = $.ajax({
 
 
 
-function popCard (roverarray){
-    
+function popCard(roverarray) {
+
     for (var k = 0; k < roverarray.length; k++) {
         $('#rover-name-' + k).text('Rover: ' + roverFest[k].name);
         $('#status-' + k).text('Status: ' + roverFest[k].status);
@@ -164,24 +163,117 @@ function popCard (roverarray){
         $('#totalPhot-' + k).text('Total # Photos: ' + roverFest[k].total_photos);
     }
 }
+var totalDates = [];
 
 
-Promise.all([promise1, promise2, promise3]).then(function (response) {
-    console.log(roverFest);
-    console.log(fotos);
-    popCard(rovers);
-        // var maniFest1 = response[0].photo_manifest;
-        // var maniFest2 = response[1].photo_manifest;
-        // var maniFest3 = response[2].photo_manifest;
-        
-        sessionStorage.setItem("manifest", JSON.stringify(roverFest));
-        sessionStorage.setItem("fotos", JSON.stringify(fotos));
-        // sessionStorage.setItem("manifest2", JSON.stringify(maniFest2));
-        // sessionStorage.setItem("manifest3", JSON.stringify(maniFest3));
+function totalDate(rovers) {
+    for (var r = 0; r < rovers.length; r++) {
+
+        var startDate = moment(fotos[r][0].earth_date);
+        var endDate = moment(fotos[r][fotos[0].length - 1]);
+        var dateLength = endDate.diff(startDate, 'days');
+        totalDates.push(startDate);
+        for (var j = 0; j < dateLength; j++) {
+            var nd = moment(startDate.add(1, 'day')).format('YYYY-MM-DD');
+            totalDates.push(nd);
+        }
+        totalDates.push(endDate);
+    }
+}
+
+
+var enabledDates = [
+    {
+        roverName: "",
+        cameras: {
+            FHAZ: [],
+            RHAZ: [],
+            NAVCAM: [],
+            PANCAM: [],
+            MINITES: [],
+            CHEMCAM:[],
+            MARDI:[],
+            MAHLI:[],
+            MAST:[],
+            ENTRY:[]
+
+        },
+    },
+    {
+        roverName: "",
+        cameras: {
+            FHAZ: [],
+            RHAZ: [],
+            NAVCAM: [],
+            PANCAM: [],
+            MINITES: [],
+            CHEMCAM:[],
+            MARDI:[],
+            MAHLI:[],
+            MAST:[],
+            ENTRY:[]
+
+        },
+    },
+    {
+        roverName: "",
+        cameras: {
+            FHAZ: [],
+            RHAZ: [],
+            NAVCAM: [],
+            PANCAM: [],
+            MINITES: [],
+            CHEMCAM:[],
+            MARDI:[],
+            MAHLI:[],
+            MAST:[],
+            ENTRY:[]
+
+        },
+    }
+];
+function fhazDates(r) {
+
+    enabledDates[r].roverName = roverFest[r].name;
     
+    fotos[r].forEach(function (day,i) {
+        day.cameras.forEach(function (cameraName,j) {
+           
+                enabledDates[r].cameras[cameraName].push(day.earth_date);
+        });
+    });
+    }
+
+    
+
+
+
+
+Promise.all([promise1, promise2, promise3]).then(function () {
+    
+    popCard(rovers);
+    totalDate(rovers);
+    fhazDates(0);
+    fhazDates(1);
+    fhazDates(2);
+
+    sessionStorage.setItem("manifest", JSON.stringify(roverFest));
+    sessionStorage.setItem("fotos", JSON.stringify(fotos));
+
 });
 
+//----Create Script to Identify Dates Specified by Camera----//
+//----Spirit & Opportunity Rovers Share Same Camera String----//
 
+//--- Then iterate through earth_date array and return available
+//---and unavailable dates for each camera.  The unavailable dates will be passed 
+//---into Tepus Dominus in order to allow the user to select only that available dates 
+//---for the specified camera.
+
+//----Step1 :Iterate through each rover and each date.
+//----Return true if camera array on that date contains specified camera.
+//----This will be a nested loop. Loop through eachrover, for each rover where .contains(camera array)
+//----returns false, push earth_date to disabled date array.
 //-----Moment.js used to standardize date format-----------
 var apod = moment().subtract(1, 'days').format('YYYY-MM-DD');
 
@@ -204,3 +296,11 @@ $.ajax({
 
 
 
+
+
+    // $(function (r,cam) {
+    //     $('#datetimepicker6').datetimepicker({
+    //         defaultDate: enabledDates[r].cameras[cam][0],
+    //         enabledDates: enabledDates[r].cameras[cam]
+    //     });
+    // });
