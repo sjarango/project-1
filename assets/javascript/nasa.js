@@ -1,41 +1,6 @@
-//   //---------------Initialize Firebase (YOUR OWN APP)------------------------
-//   var firebaseConfig = {
-//     apiKey: "AIzaSyAlRsXALoi52VoaIuSpgtxUsWV3w-l6BPY",
-//     authDomain: "classproj-c95fe.firebaseapp.com",
-//     databaseURL: "https://classproj-c95fe.firebaseio.com",
-//     projectId: "classproj-c95fe",
-//     storageBucket: "",
-//     messagingSenderId: "813898612157",
-//     appId: "1:813898612157:web:e01fb2f037bebac48d26d4"
-// };
-//   // Initialize Firebase
-//   firebase.initializeApp(firebaseConfig);
-
-//     // Create a variable to reference the database.
-//     var DBMars = firebase.database();
-//     DBMars.ref().on("value", function(snapshot) {
-
-//         var sv = snapshot.val();
-
-//         // Console.loging the last user's data
-//         console.log(sv.name);
-//         console.log(sv.role);
-//         console.log(sv.startDate);
-//         console.log(sv.rate);
-
-//         // Change the HTML to reflect
-//         $("#name-display").text(sv.name);
-//         $("#email-display").text(sv.email);
-//         $("#age-display").text(sv.age);
-//         $("#comment-display").text(sv.comment);
-
-//         // Handle the errors
-//       }, function(errorObject) {
-//         console.log("Errors handled: " + errorObject.code);
-//       });
-
 
 //----------------Set Variables--------------------
+sessionStorage.clear();
 //Nasa API Key
 var apiKey = "?api_key=6ahnRsSlhvpPlehhB0fMzpoCmPoENxdPYX8NLcze";
 // Create an AJAX call to retrieve data
@@ -259,7 +224,10 @@ Promise.all([promise1, promise2, promise3]).then(function () {
 
     sessionStorage.setItem("manifest", JSON.stringify(roverFest));
     sessionStorage.setItem("fotos", JSON.stringify(fotos));
-
+    roverPull = JSON.parse(sessionStorage.getItem("manifest"));
+    fotoPull = JSON.parse(sessionStorage.getItem("fotos"));
+    addRovOpts(roverPull);
+   
 });
 
 //----Create Script to Identify Dates Specified by Camera----//
