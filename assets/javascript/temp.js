@@ -19,7 +19,7 @@ $("#submit-dob").on("click", function(event) {
 function clear(divID) {
     $("#" + divID + "-article-name").empty();
     $("#" + divID + "-article-abstract").empty();
-    $("#" + divID + "-article-iframe").empty();
+    $("#" + divID + "-article-link").empty();
     $("#" + divID + "-error-message").empty();
 
 }
@@ -58,12 +58,12 @@ function ajaxPrint (topic, divID, dob) {
             var abstractHTML = "<p>" + abstract + "</p>";
 
             var linkHTML = 
-            `<a href="${link}" class="btn btn-info stretched-link">Read Article</a>`;
+            `<a href="${link}" class="btn btn-info ">Read Article</a>`;
 
 
             $("#" + divID + "-article-name").html(nameHTML);
             $("#" + divID + "-article-abstract").html(abstractHTML);
-            $("#" + divID + "-article-iframe").html(linkHTML);
+            $("#" + divID + "-article-link").html(linkHTML);
             
 
 
