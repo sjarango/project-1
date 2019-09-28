@@ -46,25 +46,8 @@
 
                 <div class="form-group">
                   <label for="dob">Birthday (YYYY/MM/DD):</label>
-                  <!-- <input type="text" class="form-control" id="dob"> -->
                   <input type="date" class="form-control" id="dob">
                 </div>
-
-                <!-- <div class="form-group">
-                  <label for="topic-choice">Search Topic:</label>
-                  <div class="btn-group" data-toggle="buttons">
-                    
-                    <label class="btn btn-primary form-check-label active">
-                        <input class="form-check-input" type="radio" name="options" id="topic-option1" autocomplete="off" checked>
-                        World
-                    </label>
-                    <label class="btn btn-primary form-check-label">
-                      <input class="form-check-input" type="radio" name="options" id="topic-option2" autocomplete="off">
-                      Space
-                    </label>
-
-                  </div>
-                </div> -->
 
                 <button type="submit" class="btn btn-primary" id="submit-dob"><i class="fa fa-search"></i> Submit</button>
 
@@ -77,21 +60,6 @@
       <br>
 
       <div class="row">
-
-        <!-- <div class="row">
-          <div class="col-sm-12">
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <h4 class="panel-title"><strong> Picture of the Day</strong></h4>
-              </div>
-              <div class="panel-body">
-                Displays picture of the day
-                <div id="potd"></div>
-              </div>
-            </div>
-          </div>
-
-        </div> -->
 
         <br>
 
@@ -126,10 +94,10 @@
   
               <div class="panel-body" id="earch-search-results">
   
-                <div id="earth-article-name"></div>
-                <div id="earth-article-abstract"></div>
+                <div class="article-name" id="earth-article-name"></div>
+                <div class="article-abstract" id="earth-article-abstract"></div>
                 <div id="earth-article-link"></div>
-                <div id="earth-error-message"></div>
+                <div class="error-message" id="earth-error-message"></div>
   
               </div>
             </div>
@@ -163,20 +131,11 @@
               ut beatae ullam suscipit veniam.
             </p>
       
-      
           </div>
-      
         </div>
       </div>
-
+      
     </div>
-    
-    <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.0/umd/popper.min.js"></script>
@@ -185,7 +144,6 @@
     <!-- Link to Moment.js should go here -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     
-    
-    <script src="assets/javascript/temp.js"></script>
+    <script src="assets/javascript/app.js"></script>
   </body>
 </html>

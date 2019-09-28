@@ -1,42 +1,46 @@
-// ie: https://api.nytimes.com/svc/search/v2/articlesearch.json?q=nasa rover&begin_date=20120101&end_date=20131231&api-key=yJPyDNx7A7KgghCqQtWgVTgqXOGuvYro
-
-// get date from user, get top article from search results
-// display top article headline name
-// display article photo usually under headline
-// print article on page...
-
-// extra:
-// print article name in New York Times Font
-// get drop down list of topics to search from on that day
-
-// function func (topic, divID, dob) inside function
 
 $("#submit-dob").on("click", function(event) {
     event.preventDefault();
 
-    // get user input
     var userDOB = $("#dob").val();
     console.log("DOB: " + userDOB);
 
-    
-    topic = "space+astronomy";
+    clear("space");
+    clear("earth");
 
+    ajaxPrint("space", "space", userDOB);
+
+    ajaxPrint("earth", "earth", userDOB);
+
+});
+
+
+function clear(divID) {
+    $("#" + divID + "-article-name").empty();
+    $("#" + divID + "-article-abstract").empty();
+    $("#" + divID + "-article-link").empty();
+    $("#" + divID + "-error-message").empty();
+}
+
+function ajaxPrint (topic, divID, dob) {
 
     var key = "yJPyDNx7A7KgghCqQtWgVTgqXOGuvYro";
-    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + topic + "&begin_date=" + userDOB + "&end_date=" + userDOB + "&api-key=" + key;
+    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + topic + "&begin_date=" + dob + "&end_date=" + dob + "&api-key=" + key;
     console.log(queryURL);
 
     $.ajax({
         url: queryURL,
         method: "GET"
-    }).then(function(response) {
-        
+    }).then(function(response){
+
         console.log(response);
         var results = response.response;
 
         if (results.docs === undefined || results.docs.length == 0) {
             // array empty or does not exist
             console.log("No articles found");
+            var error = "<h4>No Articles Found</h4>"
+            $("#" + divID + "-error-message").html(error);
         }
         else {
             // Gets article name
@@ -47,15 +51,18 @@ $("#submit-dob").on("click", function(event) {
             console.log(title);
             console.log(abstract);
             console.log(link);
-            var html = `
-                <h2>${title}</h2>
-                 <p>${abstract}</p>
-                 <p>${link}</p>
-                 `;
 
-            $("#search-results").html("<h2>" + title + "</h2> <p>" + abstract + "</p>"+ "<p>" + link + "</p>");
+            var nameHTML = "<h2>" + title + "</h2>";
+            var abstractHTML = "<p>" + abstract + "</p>";
+
+            var linkHTML = 
+            `<a href="${link}" class="btn btn-info ">Read Article</a>`;
+
+
+            $("#" + divID + "-article-name").html(nameHTML);
+            $("#" + divID + "-article-abstract").html(abstractHTML);
+            $("#" + divID + "-article-link").html(linkHTML);
         }
-
     });
 
-});
+}
