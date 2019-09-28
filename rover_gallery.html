@@ -11,40 +11,39 @@
             <div class="col-3 form-group d-inline-block">
                 <label for="rov">Rover</label>
                 <select class="form-control" id="rov">
-                    
+
                 </select>
             </div>
 
             <div class="col-2 form-group d-none" id="cams">
                 <label for="camera-select">Camera</label>
                 <select class="form-control" id="camera-select">
-                   
+
                 </select>
             </div>
             <div class="col-sm-3 d-none" id="calendar">
-                <label for="input-group date">Available Dates</label>
                 <div class="form-group">
-                    <div class="input-group date" id="datetimepicker6" data-target-input="nearest">
+                    <label for="date">Earth Date (YYYY/MM/DD):</label>
 
-                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker6" />
-                        <div class="input-group-append" data-target="#datetimepicker6" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
+                    <input type="date" class="form-control" id="date">
                 </div>
             </div>
-
-
-            <div class="col-2 form-group">
-                <button type="submit" class="btn btn-lg elegant-color white-text" id="run-search"><i
-                        class="fa fa-search"></i>
-                    Search</button>
-            </div>
         </div>
+
+
+
+        <div class="col-2 form-group">
+            <button type="submit" class="btn btn-lg elegant-color white-text" id="run-search"><i
+                    class="fa fa-search"></i>
+                Search</button>
+        </div>
+
     </form>
 </div>
-<div id="carouselExampleControls" class="carousel slide">
-    <div class="carousel-inner h-100" id="images">
+<div id="demo" class="carousel slide" data-ride="carousel">
+    <div class="container carousel-inner no-padding" id="images">
+
+
 
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
