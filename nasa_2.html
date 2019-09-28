@@ -10,11 +10,8 @@
     <link rel="stylesheet" href="assets/css/nasa_style.css">
     <!-- MDBootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
-    <!-- Firebase References -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script> -->
 
-
+</head>
 
 </head>
 
@@ -97,7 +94,7 @@
                             <hr class="hr-light">
 
                             <!-- Description -->
-                            <h6 class="white-text my-4" id="apodExpl"></h6>
+
                             <button type="button" class="btn btn-outline-white">Read more<i
                                     class="fa fa-book ml-2"></i></button>
 
@@ -114,35 +111,86 @@
     </header>
 
     <!--Main container-->
-    <main class="mt-5">
-        <!-- <div class="container">
-            <div class="row">
-                <div class="col-md-12">
+    <div class="container-fluid mt-10 border border-primary">
 
-                    <h2 id="apodTitle"></h2>
-                    <hr>
-                    <p id="apodExpl"></p>
-
-                </div>
-
-            </div>
-            <div class="row">
-
-                <div class="col-md-12">
-                    <div class="view overlay z-depth-1-half">
-                        <img id="apod" class="card-img-top" alt="NASA Picture of the Day">
-                        <div class="mask rgba-white-light"></div>
-                    </div>
-                </div>
-            </div> -->
-        <!-- </div> --> -->
         <br>
         <div class="card-deck" id='rovercards'>
 
 
         </div>
 
-    </main>
+    </div>
+
+    <div class="container-fluid border border-primary">
+        <form>
+            <div class="row">
+                <div class="col-2 form-group d-inline-block" id="rovs">
+                    <label for="rov">Rover</label>
+                    <select class="form-control" id="rov">
+
+                    </select>
+                </div>
+
+                <div class="col-2 form-group d-none" id="cams">
+                    <label for="camera-select">Camera</label>
+                    <select class="form-control" id="camera-select">
+
+                    </select>
+                </div>
+
+                <div class="col-2 form-group d-none" id="startcal">
+
+                    <label for="date">Start Date</label>
+                    <select class="form-control" id="sDate">
+
+                        </select>
+
+                </div>
+                <div class="col-2 form-group d-none" id="endcal">
+                    <label for="date">End Date</label>
+                    <input type="date" class="form-control" id="eDate">
+                </div>
+
+
+
+
+
+
+                <div class="col-2 form-group">
+                    <button type="submit" class="btn btn-lg elegant-color white-text" id="run-search">
+                        <i class="fa fa-search"></i>Search</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+    <div class="jumbotron">
+        <div class="row" id="rovinfo">
+            <div class="card col">
+                <h3 id="rovname"></h3>
+                <h3 id="camsavail"></h3>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+        <div class="container carousel-inner no-padding  border border-primary" id="images">
+
+
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 
     <footer class="page-footer font-small elegant-color white-text pt-4 mt-4">
 
@@ -229,6 +277,7 @@
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
     <script src="assets/javascript/nasa.js"></script>
+    <script type="text/javascript" src="assets/javascript/masonry.js"></script>
 
 
 

@@ -14,6 +14,10 @@ header,
     background-size: cover!important;
 }
 
+#images{
+  height:400px;
+}
+
 .top-nav-collapse {
     background-color: #24355C;
   }
@@ -54,33 +58,30 @@ header,
       width: 50%;
     }
   }
-  
-  /* To change the amount of columns on larger devices, uncomment the code below */
-  
-  /* @media (min-width: 768px) and (max-width: 991px) {
-    .grid-sizer,
-    .grid-item {
-      width: 33.333%;
-    }
-  }
-  @media (min-width: 992px) and (max-width: 1199px) {
-    .grid-sizer,
-    .grid-item {
-      width: 25%;
-    }
-  }
-  @media (min-width: 1200px) {
-    .grid-sizer,
-    .grid-item {
-      width: 20%;
-    }
-  } */
-  
-  .grid-item {
-    float: left;
-  }
-  
-  .grid-item img {
-    display: block;
-    max-width: 100%;
-  }
+  .col-md-3 {
+    display: inline-block;
+    margin-left: -4px;
+}
+
+.col-md-3 img {
+    width: 100%;
+    height: auto;
+}
+
+body .carousel-indicators li {
+    background-color: red;
+}
+
+body .carousel-indicators {
+    bottom: 0;
+}
+
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon {
+    background-color: red;
+}
+
+body .no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}

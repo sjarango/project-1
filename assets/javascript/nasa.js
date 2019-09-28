@@ -73,8 +73,6 @@ function renderRovers(urls) {
 
 
 
-
-
 //-----Global variables used in function maniFest-----//
 
 var roverFest = [];
@@ -230,19 +228,6 @@ Promise.all([promise1, promise2, promise3]).then(function () {
    
 });
 
-//----Create Script to Identify Dates Specified by Camera----//
-//----Spirit & Opportunity Rovers Share Same Camera String----//
-
-//--- Then iterate through earth_date array and return available
-//---and unavailable dates for each camera.  The unavailable dates will be passed 
-//---into Tepus Dominus in order to allow the user to select only that available dates 
-//---for the specified camera.
-
-//----Step1 :Iterate through each rover and each date.
-//----Return true if camera array on that date contains specified camera.
-//----This will be a nested loop. Loop through eachrover, for each rover where .contains(camera array)
-//----returns false, push earth_date to disabled date array.
-//-----Moment.js used to standardize date format-----------
 var apod = moment().subtract(1, 'days').format('YYYY-MM-DD');
 
 var apodURL = 'https://api.nasa.gov/planetary/apod' + apiKey + '&date=' + apod;
@@ -258,17 +243,7 @@ $.ajax({
     var apodTitle = response.title;
     $("#intro").css('background', 'url(' + apodImg + ')no-repeat center center fixed');
     $('#apod').attr('src', apodImg);
-    $('#apodExpl').text(apodExpl);
-    $('#apodTitle').text(apodTitle);
+   
 });
 
 
-
-
-
-    // $(function (r,cam) {
-    //     $('#datetimepicker6').datetimepicker({
-    //         defaultDate: enabledDates[r].cameras[cam][0],
-    //         enabledDates: enabledDates[r].cameras[cam]
-    //     });
-    // });

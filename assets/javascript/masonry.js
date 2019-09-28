@@ -2,11 +2,12 @@
 
 var apiKey = "&api_key=6ahnRsSlhvpPlehhB0fMzpoCmPoENxdPYX8NLcze";
 var rovCams = [];
-
+var intro = "https://api.nasa.gov/mars-photos/api/v1/rovers/";
 
 // FUNCTIONS
 // ==========================================================
 
+// Data Picker Initialization
 
 function rowNum(photos) {
     var rows = 0;
@@ -20,13 +21,17 @@ function rowNum(photos) {
 }
 
 function addRovOpts(pull) {
-    console.log(pull);
     for (var f = 0; f < pull.length; f++) {
         var opt = $('<option>');
         opt.attr('value', pull[f].name.toLowerCase());
         opt.text(pull[f].name);
         $('#rov').append(opt);
+        
+        if (f == 0){
+            opt.attr('placeholder', pull[0].name);
+        }
     }
+    
 }
 
 function addImage(src, imgDiv) {
@@ -89,15 +94,46 @@ $("#run-search").on("click", function (event) {
     var cam = $("#camera-select").val();
     var rov = $("#rov").val();
 
-    var searchURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rov + "/photos?" + "earth_date=" + eDate + "&camera=" + cam + apiKey;
+    var searchURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rov + "/photos?earth_date=" + eDate + "&camera=" + cam + apiKey;
 
 
     searchPhotos(searchURL);
 
 });
 
-$('#rov').on('change', function () {
+var imgFest = [
+    {
+        roverName: "",
+        camera:"",
+        date:[]
+    }
+];
+ 
+// function getFotos(datearray) {
+//     var calls = datearray.map(it => {
+//         return $.ajax({
+//             url: intro + rov + "/photos?earth_date=" + it + "&camera=" + cam + apiKey,
+//             method: "GET",
+//             // complete: popCard(rovers),
+//         }).then(function (response) {
+//             return response.photos;
+//         });
+//     });
 
+//     Promise.all(calls)
+//         .then(photoz => {
+//             photoz.forEach(it => {
+//                 imgFest.push(it.img_src);
+                
+//             });
+//             sessionStorage.setItem("manifest", JSON.stringify(roverFest));
+//             sessionStorage.setItem("fotos", JSON.stringify(fotos));
+//         });
+// }
+//--Rover Selector--//
+
+$('#rov').on('change', function () {
+    imgFest.roverName = $('#rov').val()
     $("#cams").removeClass('d-none');
     camPair();
 
@@ -109,13 +145,38 @@ $('#rov').on('change', function () {
 
 $("#camera-select").on('change', function () {
     var cam = $("#camera-select").val();
-    $('#calendar').removeClass('d-none');
-
+    imgFest.camera = cam;
+    
+    $('#startcal').removeClass('d-none');
+    $('#endcal').removeClass('d-none');
+    
     var dAtes = enabledDates[r].cameras[cam];
-    var sDate = moment(dAtes[0]);
+    var sDate = dAtes[0];
+    var eDate = dAtes[dAtes.length - 1];
 
+    for (var f = 0; f < dAtes.length; f++) {
+        var opt = $('<option>');
+        opt.attr('value', dAtes[f]);
+        opt.text(pull[f].name);
+        $('#rov').append(opt);
+        
+        if (f == 0){
+            opt.attr('placeholder', pull[0].name);
+        }
+    }
+    
+   
+    var camName = $('<h3>').attr('id',cam);
+    camName.text("The " + cam + " camera has " + dAtes.length + " days with images starting " + moment(dAtes[0]).format('MM/DD/YY') + " and ending " + moment(dAtes[dAtes.length - 1]).format('MM/DD/YY'));
+    $('#camsavail').append(camName);
+    $('#sDate').attr('value',sDate);
+    $('#eDate').attr('value',eDate);
 
+    var a;
 
+    while (dAtes[a] < eDate){
+        dAtes.forEach(imgFest.date[a].push(dAtes[a]));
+    }
 
 });
 
@@ -139,21 +200,22 @@ function camPair() {
 
     var camL = Object.keys(enabledDates[r].cameras).length;
     var keyS = Object.keys(enabledDates[r].cameras);
-    console.log(camL);
-    console.log(keyS);
 
-
+    
     for (var e = 0; e < camL; e++) {
         var camy = keyS[e];
         if (enabledDates[r].cameras[camy].length !== 0) {
             rovCams.push(camy);
+
         }
     }
 
     for (var h = 0; h < rovCams.length; h++) {
+        var dAtes = enabledDates[r].cameras[rovCams[h]]; 
         var opt = $('<option>');
         opt.attr('value', rovCams[h]);
         opt.text(rovCams[h]);
         $('#camera-select').append(opt);
+       
     }
 }
