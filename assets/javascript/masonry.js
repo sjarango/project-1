@@ -20,19 +20,7 @@ function rowNum(photos) {
     return rows;
 }
 
-function addRovOpts(pull) {
-    for (var f = 0; f < pull.length; f++) {
-        var opt = $('<option>');
-        opt.attr('value', pull[f].name.toLowerCase());
-        opt.text(pull[f].name);
-        $('#rov').append(opt);
-        
-        if (f == 0){
-            opt.attr('placeholder', pull[0].name);
-        }
-    }
-    
-}
+
 
 function addImage(src, imgDiv) {
 
@@ -104,11 +92,12 @@ $("#run-search").on("click", function (event) {
 var imgFest = [
     {
         roverName: "",
-        camera:"",
-        date:[]
+        camera: "",
+        dates: {
+        }
     }
 ];
- 
+
 // function getFotos(datearray) {
 //     var calls = datearray.map(it => {
 //         return $.ajax({
@@ -124,7 +113,7 @@ var imgFest = [
 //         .then(photoz => {
 //             photoz.forEach(it => {
 //                 imgFest.push(it.img_src);
-                
+
 //             });
 //             sessionStorage.setItem("manifest", JSON.stringify(roverFest));
 //             sessionStorage.setItem("fotos", JSON.stringify(fotos));
@@ -133,6 +122,8 @@ var imgFest = [
 //--Rover Selector--//
 
 $('#rov').on('change', function () {
+    $('#camera-select').empty();
+    $('#camsavail').empty();
     imgFest.roverName = $('#rov').val()
     $("#cams").removeClass('d-none');
     camPair();
@@ -144,39 +135,56 @@ $('#rov').on('change', function () {
 
 
 $("#camera-select").on('change', function () {
+
+    $('#camsavail').empty();
+
     var cam = $("#camera-select").val();
     imgFest.camera = cam;
-    
+
     $('#startcal').removeClass('d-none');
     $('#endcal').removeClass('d-none');
-    
+
     var dAtes = enabledDates[r].cameras[cam];
     var sDate = dAtes[0];
     var eDate = dAtes[dAtes.length - 1];
 
+
+
+    sessionStorage.setItem("dates", JSON.stringify(dAtes));
+
     for (var f = 0; f < dAtes.length; f++) {
         var opt = $('<option>');
-        opt.attr('value', dAtes[f]);
-        opt.text(pull[f].name);
-        $('#rov').append(opt);
-        
-        if (f == 0){
-            opt.attr('placeholder', pull[0].name);
+        var opt2 = $('<option>');
+        if (f == 0) {
+            opt.attr('placeholder', moment(sDate).format('MM/DD/YY'));
+
         }
+        else if (f == (dAtes.length - 1)) {
+            opt2.attr('placeholder', moment(eDate).format('MM/DD/YY'));
+
+        }
+
+
+        opt.attr('value', dAtes[f]);
+        opt2.attr('value', dAtes[f]);
+
+        opt.text(moment(dAtes[f]).format('MM/DD/YY'));
+        opt2.text(moment(dAtes[f]).format('MM/DD/YY'));
+
+
+        $('#sDate').append(opt);
+        $('#eDate').append(opt2);
+
+
     }
-    
-   
-    var camName = $('<h3>').attr('id',cam);
+
+    var camName = $('<h3>').attr('id', cam);
     camName.text("The " + cam + " camera has " + dAtes.length + " days with images starting " + moment(dAtes[0]).format('MM/DD/YY') + " and ending " + moment(dAtes[dAtes.length - 1]).format('MM/DD/YY'));
     $('#camsavail').append(camName);
-    $('#sDate').attr('value',sDate);
-    $('#eDate').attr('value',eDate);
 
-    var a;
 
-    while (dAtes[a] < eDate){
-        dAtes.forEach(imgFest.date[a].push(dAtes[a]));
-    }
+
+
 
 });
 
@@ -201,7 +209,7 @@ function camPair() {
     var camL = Object.keys(enabledDates[r].cameras).length;
     var keyS = Object.keys(enabledDates[r].cameras);
 
-    
+
     for (var e = 0; e < camL; e++) {
         var camy = keyS[e];
         if (enabledDates[r].cameras[camy].length !== 0) {
@@ -211,11 +219,33 @@ function camPair() {
     }
 
     for (var h = 0; h < rovCams.length; h++) {
-        var dAtes = enabledDates[r].cameras[rovCams[h]]; 
         var opt = $('<option>');
         opt.attr('value', rovCams[h]);
         opt.text(rovCams[h]);
         $('#camera-select').append(opt);
-       
+
     }
 }
+
+var newArray = [];
+$('#eDate').on('change',function (){
+    var start = $('#sDate').val();
+    var ennd = $('#eDate').val();
+    var dateArray = JSON.parse(sessionStorage.getItem("dates"));
+    btw(start,ennd,dateArray);    
+});
+
+
+
+function btw(start, ennd, dateArray) {
+
+    dateArray.forEach(function (day, i) {
+        if (day >= start == true && day <= ennd == true) {
+            newArray.push(day);
+            console.log(newArray);
+        }
+    });
+}
+
+
+

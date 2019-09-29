@@ -108,7 +108,23 @@ var promise3 = $.ajax({
 });
 
 
+function addRovOpts(pull) {
+    $('#rov').empty();
+    for (var f = 0; f < pull.length; f++) {
+        var opt = $('<option>');
+        opt.attr('value', pull[f].name.toLowerCase());
+        opt.text(pull[f].name);
+        if (f == 0) {
+            opt.attr('placeholder', pull[0].name);
+            $('#rov').append(opt);
+        }
+        else{
+        $('#rov').append(opt);
+        }
+        
+    }
 
+}
 
 
 
@@ -193,6 +209,7 @@ var enabledDates = [
             ENTRY:[]
 
         },
+    
     }
 ];
 function fhazDates(r) {
@@ -201,8 +218,12 @@ function fhazDates(r) {
     
     fotos[r].forEach(function (day,i) {
         day.cameras.forEach(function (cameraName,j) {
-           
+           if (fotos[r].earth_date !== null){
                 enabledDates[r].cameras[cameraName].push(day.earth_date);
+           }
+           else {
+               enabledDates[r].cameras[cameraName].push(day.sol);
+           }
         });
     });
     }
@@ -239,8 +260,7 @@ $.ajax({
     method: "GET"
 }).then(function (response) {
     var apodImg = response.url;
-    var apodExpl = response.explanation;
-    var apodTitle = response.title;
+   
     $("#intro").css('background', 'url(' + apodImg + ')no-repeat center center fixed');
     $('#apod').attr('src', apodImg);
    
