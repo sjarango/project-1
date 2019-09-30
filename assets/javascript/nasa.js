@@ -26,7 +26,6 @@ var manifestParams = ["launch-date-", "land-date-", "max-date-", "solNum-", "tot
 // getResponse(rovers);
 renderRovers(imgUrls);
 
-
 function renderRovers(urls) {
     var rCard = $('#rovercards');
     for (var i = 0; i < urls.length; i++) {
@@ -114,20 +113,10 @@ function addRovOpts(pull) {
         var opt = $('<option>');
         opt.attr('value', pull[f].name.toLowerCase());
         opt.text(pull[f].name);
-        if (f == 0) {
-            opt.attr('placeholder', pull[0].name);
-            $('#rov').append(opt);
-        }
-        else{
         $('#rov').append(opt);
         }
         
     }
-
-}
-
-
-
 
 
 function popCard(roverarray) {
@@ -142,8 +131,8 @@ function popCard(roverarray) {
         $('#totalPhot-' + k).text('Total # Photos: ' + roverFest[k].total_photos);
     }
 }
-var totalDates = [];
 
+var totalDates = [];
 
 function totalDate(rovers) {
     for (var r = 0; r < rovers.length; r++) {
@@ -212,6 +201,7 @@ var enabledDates = [
     
     }
 ];
+
 function fhazDates(r) {
 
     enabledDates[r].roverName = roverFest[r].name;
