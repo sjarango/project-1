@@ -120,8 +120,91 @@
         </div>
 
     </div>
-
-    <div class="container-fluid border border-primary">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h2>About the Nasa Rover Camers </h2>
+                <p class="lead"> Each camera has a unique function and perspective, and they are named as follows: </p>
+                <table style="align-content: center;">
+                    <thead>
+                        <tr>
+                            <th>Abbreviation</th>
+                            <th>Camera</th>
+                            <th class="markerBox">Curiousity</th>
+                            <th class="markerBox">Opportunity</th>
+                            <th class="markerBox">Spirit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FHAZ</td>
+                            <td>Front Hazard Avoidance Camera</td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox">✔</td>
+                        </tr>
+                        <tr>
+                            <td>RHAZ</td>
+                            <td>Rear Hazard Avoidance Camera</td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox">✔</td>
+                        </tr>
+                        <tr>
+                            <td>MAST</td>
+                            <td>Mast Camera</td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox"></td>
+                            <td class="markerBox"></td>
+                        </tr>
+                        <tr>
+                            <td>CHEMCAM</td>
+                            <td>Chemistry and Camera Complex</td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox"></td>
+                            <td class="markerBox"></td>
+                        </tr>
+                        <tr>
+                            <td>MAHLI</td>
+                            <td>Mars Hand Lens Imager</td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox"></td>
+                            <td class="markerBox"></td>
+                        </tr>
+                        <tr>
+                            <td>MARDI</td>
+                            <td>Mars Descent Imager</td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox"></td>
+                            <td class="markerBox"></td>
+                        </tr>
+                        <tr>
+                            <td>NAVCAM</td>
+                            <td>Navigation Camera</td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox">✔</td>
+                        </tr>
+                        <tr>
+                            <td>PANCAM</td>
+                            <td>Panoramic Camera</td>
+                            <td class="markerBox"></td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox">✔</td>
+                        </tr>
+                        <tr>
+                            <td>MINITES</td>
+                            <td>Miniature Thermal Emission Spectrometer (Mini-TES)</td>
+                            <td class="markerBox"></td>
+                            <td class="markerBox">✔</td>
+                            <td class="markerBox">✔</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid border border-primary elegant-color" id="selector">
         <form>
             <div class="row">
                 <div class="col-2 form-group d-inline-block" id="rovs">
@@ -154,12 +237,8 @@
                 </div>
 
 
-
-
-
-
                 <div class="col-2 form-group d-inline-block">
-                    <button type="submit" class="btn btn-lg elegant-color white-text" id="run-search">
+                    <button type="submit" class="btn btn-lg amber darken-4 white-text" id="run-search">
                         <i class="fa fa-search"></i>Search</button>
                 </div>
             </div>
@@ -168,13 +247,16 @@
         </form>
     </div>
     <div class="jumbotron">
-        <div class="row" id="rovinfo">
+
+
+        <div class="row">
+
             <div class="card col">
                 <h3 id="rovname"></h3>
                 <h3 id="camsavail"></h3>
             </div>
-
         </div>
+    </div>
     </div>
 
 
