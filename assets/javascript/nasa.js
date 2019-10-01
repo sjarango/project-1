@@ -125,20 +125,21 @@ function popCard(roverarray) {
     }
 }
 
-function totalDate(rovers) {
-    for (var r = 0; r < rovers.length; r++) {
-
-        var startDate = moment(fotos[r][0].earth_date);
-        var endDate = moment(fotos[r][fotos[0].length - 1]);
+function totalDate(r) {
+        var startDate = moment(roverFest[r].landing_date);
+        var endDate = moment(roverFest[r].max_date);
         var dateLength = endDate.diff(startDate, 'days');
         enabledDates[r].totalDates.push(startDate);
+       
         for (var j = 0; j < dateLength; j++) {
             var nd = moment(startDate.add(1, 'day')).format('YYYY-MM-DD');
             enabledDates[r].totalDates.push(nd);
         }
+       
         enabledDates[r].totalDates.push(endDate);
     }
-}
+       
+
 
 
 var enabledDates = [
@@ -203,14 +204,19 @@ function fhazDates(r) {
     enabledDates[r].roverName = roverFest[r].name;
     
     fotos[r].forEach(function (day,i) {
+        
+        if (day.earth_date !== undefined){
+            
         day.cameras.forEach(function (cameraName,j) {
-           if (fotos[r].earth_date !== null){
-                enabledDates[r].cameras[cameraName].push(day.earth_date);
-           }
-           else {
-               enabledDates[r].cameras[cameraName].push(day.sol);
-           }
-        });
+           enabledDates[r].cameras[cameraName].push(day.earth_date);
+           });
+        }
+           
+        else {
+            day.cameras.forEach(function (cameraName,j) {
+            enabledDates[r].cameras[cameraName].push(day.sol);
+           });
+        }
     });
     }
 
@@ -226,19 +232,19 @@ function countPhotos(k){
 
 
 Promise.all([promise1, promise2, promise3]).then(function () {
-    
+    sessionStorage.setItem("manifest", JSON.stringify(roverFest));
+    sessionStorage.setItem("fotos", JSON.stringify(fotos));
+    roverPull = JSON.parse(sessionStorage.getItem("manifest"));
+    fotoPull = JSON.parse(sessionStorage.getItem("fotos")); 
     popCard(rovers);
-    totalDate(rovers);
+    
     for (var i = 0; i < 3;i++){
     fhazDates(i);
     countPhotos(i);
     totalDate(i);
     }
 
-    sessionStorage.setItem("manifest", JSON.stringify(roverFest));
-    sessionStorage.setItem("fotos", JSON.stringify(fotos));
-    roverPull = JSON.parse(sessionStorage.getItem("manifest"));
-    fotoPull = JSON.parse(sessionStorage.getItem("fotos"));
+   
     addRovOpts(roverPull);
     
    

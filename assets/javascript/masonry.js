@@ -47,7 +47,7 @@ var newArray = [];
 
 //-----Rover Selector-----//
 $('#rov').on('change', function () {
-    $('#cams').empty();
+    $('#camera-select').empty();
     $('#sDate').empty();
     $('#eDate').empty();
     $('#camsavail').empty();
@@ -76,13 +76,12 @@ $("#camera-select").on('change', function () {
         sessionStorage.setItem("dAtes", JSON.stringify(spdAtes));
     }
 
-    var dtes = JSON.parse(sessionStorage.getItem('dAtes'))
+    var dtes = JSON.parse(sessionStorage.getItem('dAtes'));
     for (var f = 0; f < dtes.length; f++) {             //The camera selection dictates the dates available
         var opt = $('<option>');                         //opt = start date
         var opt2 = $('<option>');                        //opt2 = end date
         var sDate = dtes[0];
-        var eDate = dtes[dtes.length - 1];
-        if (f == 0) {
+         if (f == 0) {
             opt.attr('placeholder', moment(sDate).format('MM/DD/YY'));
 
         }
@@ -216,10 +215,15 @@ function camPair() {
 }
 
 function btw(start, ennd, dateArray) {
+    var diff = moment(ennd).diff(moment(start),'days');
     dateArray.forEach(function (day, i) {
         if (day >= start == true && day <= ennd == true) {
+            
+
             newArray.push(day);
+        
         }
+        return diff;
     });
 }
 
