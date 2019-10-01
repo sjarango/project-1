@@ -1,0 +1,118 @@
+html,
+body,
+header,
+#intro {
+    height: 100%;
+    
+    
+}
+body{
+  text-align:center;
+}
+
+#caminfo{
+  text-align:center;
+  padding-top: 20px;
+  padding-bottom:20px;
+}
+
+.carousel-caption{
+  padding-bottom:0px!important;
+}
+#intro {
+    
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover!important;
+}
+
+table,td,th {
+  text-align:center;
+}
+
+#images{
+  height:600px;
+}
+img{
+  text-align:center!important;
+}
+.carousel-inner > .item > img {
+  text-align:center;
+  margin: 0 auto;
+}
+
+.top-nav-collapse {
+    background-color: #24355C;
+  }
+  @media (max-width: 768px) {
+    .navbar:not(.top-nav-collapse) {
+      background-color: #24355C;
+    }
+  }
+  @media (min-width: 800px) and (max-width: 850px) {
+    .navbar:not(.top-nav-collapse) {
+      background-color: #24355C;
+    }
+  }
+
+ 
+  * { box-sizing: border-box; }
+  
+  .grid:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  
+  
+  .grid-item {
+    max-width: 12.5% !important;
+  }
+
+  @media (max-width: 575px) {
+    .grid-sizer,
+    .grid-item {
+      width: 100%;
+    }
+  }
+  @media (min-width: 576px) and (max-width: 767px) {
+    .grid-sizer,
+    .grid-item {
+      width: 50%;
+    }
+  }
+  .col-md-3 {
+    display: inline-block;
+    margin-left: -4px;
+}
+
+.col-md-3 img {
+    width: 100%;
+    height: auto;
+}
+
+body .carousel-indicators li {
+    background-color:white;
+}
+
+body .carousel-indicators {
+    bottom: 0;
+}
+
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon {
+    background-color: goldenrod;
+}
+
+body .no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#selector{
+ text-align: center;
+ color: white;
+ padding-top: 20px;
+
+}
