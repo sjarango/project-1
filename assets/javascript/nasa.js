@@ -24,7 +24,7 @@ function renderRovers(urls) {
     for (var i = 0; i < urls.length; i++) {
         //<!--Card Image-->
         var cardDiv = $('<div>');
-        cardDiv.addClass('card mb-4');
+        cardDiv.addClass('card mb-auto');
         var oLayCard = $('<div>');
         oLayCard.addClass('view overlay');
         oLayCard.attr('id', rovers[i]);
