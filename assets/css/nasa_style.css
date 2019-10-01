@@ -15,7 +15,12 @@ header,
 }
 
 #images{
-  height:400px;
+  height:600px;
+}
+
+.carousel-inner > .item > img {
+  text-align:center;
+  margin: 0 auto;
 }
 
 .top-nav-collapse {
@@ -69,7 +74,7 @@ header,
 }
 
 body .carousel-indicators li {
-    background-color: red;
+    background-color:white;
 }
 
 body .carousel-indicators {
@@ -78,7 +83,7 @@ body .carousel-indicators {
 
 body .carousel-control-prev-icon,
 body .carousel-control-next-icon {
-    background-color: red;
+    background-color: goldenrod;
 }
 
 body .no-padding {
