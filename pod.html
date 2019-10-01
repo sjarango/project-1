@@ -6,11 +6,8 @@
     <title>Picture of the Day</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">    
     <!-- MDBootstrap Masonry  -->
-
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -27,7 +24,7 @@
             <div class="container">
 
                 <!-- Navbar brand -->
-                <a class="navbar-brand" href="#">Navbar</a>
+                <a class="navbar-brand" href="index.html">Space Adventures</a>
 
                 <!-- Collapse button -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -41,17 +38,11 @@
                     <!-- Links -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home
+                            <a class="nav-link" href="index.html">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-
+                        
                         <!-- Dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -64,21 +55,7 @@
                         </li>
 
                     </ul>
-                    <!-- birthday finder for APOD-->
-                    <form class="form-inline">
-                        <div class="md-form my-0">
-                                <form role="form">
-                                        ​
-                                    <div class="form-group">
-                                        <label for="date">Enter Birthday:</label>
-                                        <!-- <input type="text" class="form-control" id="dob"> -->
-                                        <input type="date" class="form-control" id="date">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary" id="submit-date"><i class="fa fa-search"></i> Submit</button>
-                                    ​
-                                </form>
-                            </div>
-                    </form>
+                    
                 </div>
 
             </div>
@@ -88,6 +65,51 @@
 
     <!--Main container-->
     <main class="mt-5">
+
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-2"></div>
+
+                        <div class="col-md-8">
+
+                            <div class="card border-dark text-center" style="max-width: 50rem;">
+                                <div class="card-header h5">Enter Date</div>
+                                <div class="card-body text-dark">
+                                    <h5 class="card-title"></h5>
+                                    <p class="card-text">Enter date of birth or a specific date below to see NASA's picture of the day, and the top New York Times article 
+                                        for Antronomy and World News for that date. </p>
+                                    <!-- birthday finder for APOD-->
+                                    <form class="form-center text-center">
+                                        <div class="md-form ">
+                                            <div class="row">
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-4">
+                                                    <form role="form text-center">
+                                                        ​
+                                                        <div class="form-group">
+                                                            <label for="date">Enter Date:</label>
+                                                            <input type="date" class="form-control" id="date">
+                                                        </div>
+                                                        <button type="submit" class="text-center btn btn-primary" id="submit-date"><i class="fa fa-search"></i> Submit</button>
+                                                        ​
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-4"></div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="col-md-2"></div>
+
+                </div>
+        </div>
+
+        <br><br>
+
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -165,13 +187,13 @@
             <div class="row">
 
                 <!-- Grid column -->
-                <div class="col-md-6 mt-md-0 mt-3">
+                <!-- <div class="col-md-6 mt-md-0 mt-3"> -->
 
                     <!-- Content -->
-                    <h5 class="text-uppercase">Footer Content</h5>
-                    <p>Here you can use rows and columns here to organize your footer content.</p>
+                    <!-- <h5 class="text-uppercase">Footer Content</h5> -->
+                    <!-- <p>Here you can use rows and columns here to organize your footer content.</p> -->
 
-                </div>
+                <!-- </div> -->
                 <!-- Grid column -->
 
                 <hr class="clearfix w-100 d-md-none pb-3">
@@ -190,34 +212,7 @@
                             <a href="https://apod.nasa.gov/apod/astropix.html">Astronomy Picture of the Day</a>
                         </li>
                         <li>
-                            <a href="">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 4</a>
-                        </li>
-                    </ul>
-
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-3 mb-md-0 mb-3">
-
-                    <!-- Links -->
-                    <h5 class="text-uppercase">Links</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 4</a>
+                            <a href="https://www.nytimes.com/">New York Times</a>
                         </li>
                     </ul>
 
