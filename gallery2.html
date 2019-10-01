@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Gallery 2</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+    
+<!---Script CDNs-->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.0/umd/popper.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+<style>
+.col-md-3 {
+            display: inline-block;
+            margin-left: -4px;
+        }
+
+        .col-md-3 img {
+            width: 100%;
+            height: auto;
+        }
+
+        body .carousel-indicators li {
+            background-color: red;
+        }
+
+        body .carousel-indicators {
+            bottom: 0;
+        }
+
+        body .carousel-control-prev-icon,
+        body .carousel-control-next-icon {
+            background-color: red;
+        }
+
+        body .no-padding {
+            padding-left: 0;
+            padding-right: 0;
+        }
+</style>
+
+
+
+</head>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="input-group date" id="datetimepicker6" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker6" />
+                    <div class="input-group-append" data-target="#datetimepicker6" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!--Carousel Wrapper-->
+<div id="demo" class="carousel slide" data-ride="carousel">
+
+
+        Indicators
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+    
+        <!-- The slideshow -->
+        <div class="container carousel-inner no-padding" id="images">
+            <div class="carousel-item active">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/reflection.jpg">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/reflection.jpg">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/reflection.jpg">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/cloud.jpg">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/cloud.jpg">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/cloud.jpg">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/cloud.jpg">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/bluesky.jpg">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/bluesky.jpg">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/bluesky.jpg">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/bluesky.jpg">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <img src="assets/images/bluesky.jpg">
+                </div>
+            </div>
+    
+    
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Card -->
+    <div class="row">
+        <div class=" col-12 card ">
+    
+    
+            <!-- Card content -->
+            <div class="card-body card-body-cascade text-center">
+    
+                <!-- Title -->
+                <h4 class="card-title"><strong>NY Times Stories </strong></h4>
+                <!-- Subtitle -->
+                <h6 class="font-weight-bold indigo-text py-2">The World</h6>
+                <!-- Text -->
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
+                    perspiciatis
+                    voluptatum a, quo nobis, non commodi quia repellendus sequi nulla voluptatem dicta
+                    reprehenderit, placeat
+                    laborum ut beatae ullam suscipit veniam.
+                </p>
+                <h6 class="font-weight-bold indigo-text py-2">Space & Astronomy</h6>
+                <!-- Text -->
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
+                    perspiciatis
+                    voluptatum a, quo nobis, non commodi quia repellendus sequi nulla voluptatem dicta
+                    reprehenderit, placeat
+                    laborum ut beatae ullam suscipit veniam.
+                </p>
+    
+    
+            </div>
+    
+        </div>
+    </div>
+    <!-- Card -->
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#datetimepicker6').datetimepicker({
+            defaultDate: "11/1/2013",
+            disabledDates: [
+                moment("12/25/2013"),
+                new Date(2013, 11 - 1, 21),
+                "11/22/2013 00:53"
+            ]
+        });
+    });
+</script>
