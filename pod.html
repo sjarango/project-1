@@ -69,21 +69,21 @@
                         <div class="md-form my-0">
                                 <form role="form">
                                         ​
-                                                        <div class="form-group">
-                                                          <label for="date">Birthday (YYYY/MM/DD):</label>
-                                                          <!-- <input type="text" class="form-control" id="dob"> -->
-                                                          <input type="date" class="form-control" id="date">
-                                                        </div>
-                                            <button type="submit" class="btn btn-primary" id="submit-date"><i class="fa fa-search"></i> Submit</button>
-                                        ​
-                                                      </form>
-                        </div>
+                                    <div class="form-group">
+                                        <label for="date">Enter Birthday:</label>
+                                        <!-- <input type="text" class="form-control" id="dob"> -->
+                                        <input type="date" class="form-control" id="date">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="submit-date"><i class="fa fa-search"></i> Submit</button>
+                                    ​
+                                </form>
+                            </div>
                     </form>
                 </div>
 
             </div>
-
         </nav>
+
     </header>
 
     <!--Main container-->
@@ -108,13 +108,52 @@
                     </div>
                 </div>
             </div>
-        </div>
+        
         <br>
         <div class="row">
 
+            <div class="col-sm-6">
+                <br>
+            
+                <div class="panel panel-primary">
+            
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><strong><i class="fa fa-table"></i> Top Space Article</strong></h4>
+                    </div>
+            
+                    <div class="panel-body" id="space-search-results">
+            
+                        <div class="article-name" id="space-article-name"></div>
+                        <div class="article-abstract" id="space-article-abstract"></div>
+                        <div id="space-article-link"></div>
+                        <div class="error-message" id="space-error-message"></div>
+            
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <br>
+            
+                <div class="panel panel-primary">
+            
+                    <div class="panel-heading">
+                        <h4 class="panel-title"><strong><i class="fa fa-table"></i> Top Earth Article</strong></h4>
+                    </div>
+            
+                    <div class="panel-body" id="earch-search-results">
+            
+                        <div class="article-name" id="earth-article-name"></div>
+                        <div class="article-abstract" id="earth-article-abstract"></div>
+                        <div id="earth-article-link"></div>
+                        <div class="error-message" id="earth-error-message"></div>
+            
+                    </div>
+                </div>
+            </div>
             
         </div>
-
+    </div>
     </main>
 
     <footer class="page-footer font-small indigo pt-4 mt-4">
