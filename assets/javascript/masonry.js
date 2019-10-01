@@ -5,7 +5,7 @@ var rovCams = [];
 var intro = "https://api.nasa.gov/mars-photos/api/v1/rovers/";
 
 var cam = $("#camera-select").val();
-var rov = $("#rov").val();
+$("#rov").empty();
 
 // The AJAX function uses the queryURL and GETS the JSON data associated with it.
 // The data then gets stored in the variable called: "NYTData"
@@ -40,11 +40,6 @@ function searchPhotos(url) {
 }
 
 
-// METHODS ==========================================================
-
-
-
-
 var newArray = [];
 
 
@@ -52,7 +47,7 @@ var newArray = [];
 
 //-----Rover Selector-----//
 $('#rov').on('change', function () {
-    $('#camera-select').empty();
+    $('#cams').empty();
     $('#sDate').empty();
     $('#eDate').empty();
     $('#camsavail').empty();
@@ -69,33 +64,40 @@ $("#camera-select").on('change', function () {
     $('#eDate').empty();
     var cam = $("#camera-select").val();
     imgFest.camera = cam;
-    var dAtes = enabledDates[r].cameras[cam];
-    var sDate = dAtes[0];
-    var eDate = dAtes[dAtes.length - 1];
-    sessionStorage.setItem("dates", JSON.stringify(dAtes));
 
-    for (var f = 0; f < dAtes.length; f++) {             //The camera selection dictates the dates available
+    if (enabledDates[r].roverName !== "Spirit") {
+        var dAtes = enabledDates[r].cameras[cam];
+        
+        sessionStorage.setItem("dates", JSON.stringify(dAtes));
+
+    }
+    else {
+        var spdAtes = enabledDates[r].totalDates;
+        sessionStorage.setItem("dAtes", JSON.stringify(spdAtes));
+    }
+
+    var dtes = JSON.parse(sessionStorage.getItem('dAtes'))
+    for (var f = 0; f < dtes.length; f++) {             //The camera selection dictates the dates available
         var opt = $('<option>');                         //opt = start date
         var opt2 = $('<option>');                        //opt2 = end date
+        var sDate = dtes[0];
+        var eDate = dtes[dtes.length - 1];
         if (f == 0) {
             opt.attr('placeholder', moment(sDate).format('MM/DD/YY'));
 
         }
-        else if (f == (dAtes.length - 1)) {
-            opt2.attr('placeholder', moment(eDate).format('MM/DD/YY'));
 
-        }
-
-        opt.attr('value', dAtes[f]);
-        opt2.attr('value', dAtes[f]);
-        opt.text(moment(dAtes[f]).format('MM/DD/YY'));
-        opt2.text(moment(dAtes[f]).format('MM/DD/YY'));
+        opt.attr('value', dtes[f]);
+        opt2.attr('value', dtes[f]);
+        opt2.attr('placeholder', moment(sDate).add(10, 'days').format('MM/DD/YY'));
+        opt.text(moment(dtes[f]).format('MM/DD/YY'));
+        opt2.text(moment(dtes[f]).format('MM/DD/YY'));
         $('#sDate').append(opt);
         $('#eDate').append(opt2);
     }
 
     var camName = $('<h3>').attr('id', cam);
-    camName.text("The " + cam + " camera has " + dAtes.length + " days with images starting " + moment(dAtes[0]).format('MM/DD/YY') + " and ending " + moment(dAtes[dAtes.length - 1]).format('MM/DD/YY'));
+    camName.text("The " + cam + " camera has " + dtes.length + " days with images starting " + moment(dAtes[0]).format('MM/DD/YY') + " and ending " + moment(dAtes[dAtes.length - 1]).format('MM/DD/YY'));
     $('#camsavail').append(camName);
 
 });
@@ -113,7 +115,7 @@ $("#run-search").on("click", function (event) {
     event.preventDefault();
     $("#images").empty();
     getFotos(newArray);
-    
+
     // var searchURL = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rov + "/photos?earth_date=" + eDate + "&camera=" + cam + apiKey;
     // searchPhotos(searchURL);
 
@@ -128,7 +130,7 @@ var imgFest = [
     }
 ];
 
-var images =[];
+var images = [];
 var camname = "";
 var earDate = "";
 //---API Query Function---//
@@ -148,20 +150,20 @@ function getFotos(datearray) {
     });
 
     Promise.all(calls)
-        .then(function(){
+        .then(function () {
 
             layImages();
-                     
-            });
-            
-        }
-        
+
+        });
+
+}
+
 
 
 
 //---Functions---//
 
-function layImages(){
+function layImages() {
     var images = JSON.parse(sessionStorage.getItem('images'));
     var srcNum = images.length;
     var rows = rowNum(srcNum);
@@ -186,7 +188,7 @@ function layImages(){
 }
 
 function camPair() {
-    var rov = $('#rov').val(); 
+    var rov = $('#rov').val();
     if (rov == enabledDates[0].roverName.toLowerCase()) {
         r = 0;
     }
@@ -223,7 +225,7 @@ function btw(start, ennd, dateArray) {
 
 function rowNum(photos) {
     var rows = 0;
-    if (photos < 4){
+    if (photos < 4) {
         rows = 1;
     }
     else if (photos > 4 && photos % 4 !== 0) {

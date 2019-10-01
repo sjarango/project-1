@@ -4,7 +4,6 @@ sessionStorage.clear();
 //Nasa API Key
 var apiKey = "?api_key=6ahnRsSlhvpPlehhB0fMzpoCmPoENxdPYX8NLcze";
 // Create an AJAX call to retrieve data
-
 var mcURL = 'https://api.nasa.gov/mars-photos/api/v1/manifests/Curiosity?api_key=6ahnRsSlhvpPlehhB0fMzpoCmPoENxdPYX8NLcze';
 
 var cuURL = 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/images/551041main_pia14156-full_full.jpg';
@@ -16,16 +15,10 @@ var rovDates = ['2019-09-18', '2017-06-09', '2008-02-09'];
 var rovers = ["Curiosity", "Opportunity", "Spirit"];
 var intro = 'https://api.nasa.gov/mars-photos/api/v1/manifests/';
 
-var SOcams = ["fhaz", "rhaz", "navcam", "pancam", "minites"];
-var CUcams = ["fhaz", "rhaz", "mast", "chemcam", "mardi", "mahli", "navcam"];
-
-var roversA = [];
-
 var manifestParams = ["launch-date-", "land-date-", "max-date-", "solNum-", "totalPhot-"];
 
-// getResponse(rovers);
-renderRovers(imgUrls);
 
+renderRovers(imgUrls);
 function renderRovers(urls) {
     var rCard = $('#rovercards');
     for (var i = 0; i < urls.length; i++) {
@@ -132,20 +125,18 @@ function popCard(roverarray) {
     }
 }
 
-var totalDates = [];
-
 function totalDate(rovers) {
     for (var r = 0; r < rovers.length; r++) {
 
         var startDate = moment(fotos[r][0].earth_date);
         var endDate = moment(fotos[r][fotos[0].length - 1]);
         var dateLength = endDate.diff(startDate, 'days');
-        totalDates.push(startDate);
+        enabledDates[r].totalDates.push(startDate);
         for (var j = 0; j < dateLength; j++) {
             var nd = moment(startDate.add(1, 'day')).format('YYYY-MM-DD');
-            totalDates.push(nd);
+            enabledDates[r].totalDates.push(nd);
         }
-        totalDates.push(endDate);
+        enabledDates[r].totalDates.push(endDate);
     }
 }
 
@@ -166,7 +157,10 @@ var enabledDates = [
             ENTRY:[]
 
         },
+        sumPhoto:[],
+        totalDates: []
     },
+
     {
         roverName: "",
         cameras: {
@@ -182,6 +176,8 @@ var enabledDates = [
             ENTRY:[]
 
         },
+        sumPhoto:[],
+        totalDates:[]
     },
     {
         roverName: "",
@@ -196,9 +192,9 @@ var enabledDates = [
             MAHLI:[],
             MAST:[],
             ENTRY:[]
-
         },
-    
+    sumPhoto:[],
+    totalDates:[]
     }
 ];
 
@@ -218,8 +214,14 @@ function fhazDates(r) {
     });
     }
 
-    
 
+function countPhotos(k){
+
+    roverFest[k].photos.forEach(function(photo,i){
+        enabledDates[k].sumPhoto.push(photo.total_photos);
+    });
+    
+}
 
 
 
@@ -227,15 +229,18 @@ Promise.all([promise1, promise2, promise3]).then(function () {
     
     popCard(rovers);
     totalDate(rovers);
-    fhazDates(0);
-    fhazDates(1);
-    fhazDates(2);
+    for (var i = 0; i < 3;i++){
+    fhazDates(i);
+    countPhotos(i);
+    totalDate(i);
+    }
 
     sessionStorage.setItem("manifest", JSON.stringify(roverFest));
     sessionStorage.setItem("fotos", JSON.stringify(fotos));
     roverPull = JSON.parse(sessionStorage.getItem("manifest"));
     fotoPull = JSON.parse(sessionStorage.getItem("fotos"));
     addRovOpts(roverPull);
+    
    
 });
 
