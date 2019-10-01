@@ -4,8 +4,19 @@ header,
 #intro {
     height: 100%;
     
+    
+}
+body{
+  text-align:center;
 }
 
+#caminfo{
+  text-align:center;
+}
+
+.carousel-caption{
+  padding-bottom:0px!important;
+}
 #intro {
     
     -webkit-background-size: cover;
@@ -14,10 +25,16 @@ header,
     background-size: cover!important;
 }
 
+table,td,th {
+  text-align:center;
+}
+
 #images{
   height:600px;
 }
-
+img{
+  text-align:center!important;
+}
 .carousel-inner > .item > img {
   text-align:center;
   margin: 0 auto;

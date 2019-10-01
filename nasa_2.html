@@ -120,14 +120,14 @@
         </div>
 
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 text-align center">
-                <h2>About the Nasa Rover Camers </h2>
+    <div class="container-fluid" id="caminfo">
+        <div class="row" id="caminfo">
+            <div class="col-12" id="caminfo">
+                <h2>About the Nasa Rover Cameras </h2>
                 <p class="lead"> Each camera has a unique function and perspective, and they are named as follows: </p>
-                <table style="align-content: center;">
-                    <thead>
-                        <tr>
+                <table id="caminfo">
+                    <thead id="caminfo">
+                        <tr id="caminfo">
                             <th>Abbreviation</th>
                             <th>Camera</th>
                             <th class="markerBox">Curiousity</th>
@@ -241,12 +241,16 @@
                     <button type="submit" class="btn btn-lg amber darken-4 white-text" id="run-search">
                         <i class="fa fa-search"></i>Search</button>
                 </div>
+                <div class="col-2 form-group d-inline-block">
+                        <button type="submit" class="btn btn-lg btn-danger white-text" id="reset-search">
+                            <i class="fa fa-search"></i>Reset</button>
+                    </div>
             </div>
 
 
         </form>
     </div>
-    <div class="jumbotron">
+    <div class="jumbotron d-none">
         <div class="row">
 
             <div class="card col">
@@ -258,7 +262,7 @@
     
 
 
-    <div id="mars" class="carousel elegant-color">
+    <div id="mars" class="carousel elegant-color d-none">
         <div class="container carousel-inner no-padding  border border-primary" id="images">
 
 
@@ -296,7 +300,7 @@
                 <hr class="clearfix w-100 d-md-none pb-3">
 
                 <!-- Grid column -->
-                <div class="col-md-3 mb-md-0 mb-3">
+                <div class="col-md-6 mb-md-0 mb-3">
 
                     <!-- Links -->
                     <h5 class="text-uppercase">Links</h5>
@@ -317,30 +321,7 @@
                 </div>
                 <!-- Grid column -->
 
-                <!-- Grid column -->
-                <div class="col-md-3 mb-md-0 mb-3">
-
-                    <!-- Links -->
-                    <h5 class="text-uppercase">Links</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 4</a>
-                        </li>
-                    </ul>
-
-                </div>
-                <!-- Grid column -->
-
+              
             </div>
             <!-- Grid row -->
 
