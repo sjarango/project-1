@@ -130,6 +130,12 @@ $('#eDate').on('change', function () {                          //---Once the en
     $('jumbotron').removeClass('d-none');                       //---Show the container that gives basic information about the rover,camera and images.
     var rovName = $('<h3>');
 
+    clear("space");
+    clear("earth");
+
+    display_article("astronomy", "space", ennd);
+    display_article("earth", "earth", ennd);
+
 });
 
 //-----Submit Query Button-----//
@@ -143,6 +149,60 @@ $("#run-search").on("click", function (event) {
     // searchPhotos(searchURL);
 
 });
+
+function clear(divID) {
+    $("#" + divID + "-article-name").empty();
+    $("#" + divID + "-article-abstract").empty();
+    $("#" + divID + "-article-link").empty();
+    $("#" + divID + "-error-message").empty();
+}
+
+// ajax function to display nyt article
+function display_article (topic, divID, dob) {
+
+    var key = "yJPyDNx7A7KgghCqQtWgVTgqXOGuvYro";
+    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + topic + "&begin_date=" + dob + "&end_date=" + dob + "&api-key=" + key;
+    console.log(queryURL);
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response){
+
+        console.log(response);
+        var results = response.response;
+
+        if (results.docs === undefined || results.docs.length == 0) {
+            // array empty or does not exist
+            console.log("No articles found");
+            var error = "<h4>No Articles Found</h4>"
+            $("#" + divID + "-error-message").html(error);
+        }
+        else {
+            // Gets article name
+            var title = results.docs[0].headline.main;
+            var abstract = results.docs[0].abstract;
+            var link = results.docs[0].web_url;
+
+            console.log(title);
+            console.log(abstract);
+            console.log(link);
+
+            var nameHTML = "<h2>" + title + "</h2>";
+            var abstractHTML = "<p>" + abstract + "</p>";
+
+            var linkHTML = 
+            `<a href="${link}" class="btn btn-info ">Read Article</a>`;
+
+
+            $("#" + divID + "-article-name").html(nameHTML);
+            $("#" + divID + "-article-abstract").html(abstractHTML);
+            $("#" + divID + "-article-link").html(linkHTML);
+        }
+    });
+
+}
+
 
 
 //-----Reset Button-----//
