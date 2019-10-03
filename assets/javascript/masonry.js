@@ -6,7 +6,9 @@ var rov = "";
 var cam = "";
 var r ;
 rovCams=[];
+
 var imgFest = [
+
     {
         roverName: "",      // Variable set from rover selector value
         r: "",
@@ -67,7 +69,7 @@ $('#rov').change(function () {
     sessionStorage.removeItem('images');    //Clear session storage variables used to transfer data    
     sessionStorage.removeItem('dates');
     
-    camPair();                              //Once the rover value is set by the user, information specific to that rover is called to the foreground
+    camPair(rov);                              //Once the rover value is set by the user, information specific to that rover is called to the foreground
     return rov;
 });
 
@@ -131,7 +133,7 @@ $("#camera-select").on('change', function () {                      //Not all da
         var opt2 = $('<option>');                          //opt2 = end date
         opt.attr('value', dAtes[f]);
         opt2.attr('value', dAtes[f]);
-        if (cam !== "Spirit"){
+        if (rov !== "spirit"){
         opt.text(moment(dAtes[f]).format('MM/DD/YY'));
         opt2.text(moment(dAtes[f]).format('MM/DD/YY'));
         }
