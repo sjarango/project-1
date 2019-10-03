@@ -1,10 +1,26 @@
-// SETUP VARIABLES
+//Global Variables
 
 var apiKey = "&api_key=6ahnRsSlhvpPlehhB0fMzpoCmPoENxdPYX8NLcze";
-
 var intro = "https://api.nasa.gov/mars-photos/api/v1/rovers/";
+var rov = "";
+var cam = "";
+var r ;
+rovCams=[];
+var imgFest = [
+    {
+        roverName: "",      // Variable set from rover selector value
+        r: "",
+        camera: "",
+        dates: {
+        }
+    }
+];
 
-var cam = $("#camera-select").val();
+var images = [];
+var camname = "";
+var earDate = "";
+var newArray = [];
+
 
 function searchPhotos(url) {
     $.ajax({
@@ -37,46 +53,59 @@ function searchPhotos(url) {
 }
 
 
-var newArray = [];
 
 
 //---On Change Event Functions---//
 
 //-----Rover Selector-----//
 $('#rov').change(function () {
-    $('#camera-select').empty();
-    $('#sDate').empty();
-    $('#eDate').empty();
-    $('#camsavail').empty();
-    sessionStorage.removeItem('images');
+    rov = $('#rov').val();              //When the rover value changes, this will also set the possible date arrays
+    $('#camera-select').empty();            //Clear the current camera selections which are dictated by the rover
+    $('#sDate').empty();                    //Make sure the start date is empty
+    $('#eDate').empty();                    //Make sure the end date is empty
+    $('#camsavail').empty();                //Clear the information container
+    sessionStorage.removeItem('images');    //Clear session storage variables used to transfer data    
     sessionStorage.removeItem('dates');
-    imgFest.roverName = $('#rov').val();
-    camPair();
+    
+    camPair();                              //Once the rover value is set by the user, information specific to that rover is called to the foreground
+    return rov;
 });
 
-function camPair() {                                        //This function assigns text value to numerical ordering of object
-    var rovCams = [];
-    var rov = $('#rov').val();                              //and then defines the camera selections based on what cameras are 
-    
-    if (rov == enabledDates[0].roverName.toLowerCase()) {   //present in this rover's camera object array.
-        r = 0;
+ //-----This function assigns text value to numerical ordering of object-----//
+function camPair(rov) {         
+                                  
+    if (enabledDates[0].roverName.toLowerCase() == rov) {
+    r = 0;
     }
-    else if (rov == enabledDates[1].roverName.toLowerCase()) {
-        r = 1;
+    else if(enabledDates[1].roverName.toLowerCase() == rov) {
+    r = 1;
     }
     else {
-        r = 2;
+    r = 2;
     }
-    imgFest.r = r;
+    console.log("r:" + r);
+    console.log("rover name:" + enabledDates[r].roverName);
 
     var camL = Object.keys(enabledDates[r].cameras).length;     //---Given the number of cameras available for the rover
     var keyS = Object.keys(enabledDates[r].cameras);            //---and the names of the cameras
     for (var e = 0; e < camL; e++) {                            //---cycle through all the cameras
         var camy = keyS[e];
         if (enabledDates[r].cameras[camy].length !== 0) {       //---determine if images exist on that camera
-            rovCams.push(camy);                                 //---push the cameras that have data to the dropdown variable used for camera selection
+            rovCams.push(camy);
+            enabledDates[r].photos[camy].push(enabledDates[r].cameras[camy].length);                                 //---push the cameras that have data to the dropdown variable used for camera selection
         }
     }
+    
+    addCamOpts(rovCams);
+    return r;
+
+}
+
+function addCamOpts(rovCams){
+    var opt1 =$('<option selected disabled>');
+    opt1.attr('value','');
+    opt1.text('Select Camera');
+    $('#camera-select').append(opt1);
     for (var h = 0; h < rovCams.length; h++) {
         var opt = $('<option>');
         opt.attr('value', rovCams[h]);
@@ -84,18 +113,17 @@ function camPair() {                                        //This function assi
         $('#camera-select').append(opt);
     }
 }
-
 //-----Camera Selector-----//
 $("#camera-select").on('change', function () {                      //Not all dates are available for each camera so depending on the 
+    cam = $("#camera-select").val();
     $('#camsavail').empty();                                        //rover and camera selection a new date array is assigned.  The big exception is 
     sessionStorage.removeItem('dates');
     $('#sDate').empty();                                            //Spirit rover.  The dates available for each camera is present in the rover manifest
     $('#eDate').empty();                                            //which is convenient because ,000's of api calls are spared in order to get the full
-    var cam = $("#camera-select").val();                            //date array. For the Spirit rover the earth_date is not present in the manifest, but 
+                                                                    //date array. For the Spirit rover the earth_date is not present in the manifest, but 
                                                                     //martian day(sol) is made available, which is used instead of earth_date.
-    var r = imgFest.r;
+    
     var dAtes = enabledDates[r].cameras[cam];
-    imgFest.camera = cam;                                           //A new object is created for the date range api iteration
     sessionStorage.setItem("dates", JSON.stringify(dAtes));
 
     for (var f = 0; f < dAtes.length; f++) {               //The camera selection dictates the dates available
@@ -207,12 +235,15 @@ function display_article (topic, divID, dob) {
 
 //-----Reset Button-----//
 $("#reset-search").on("click", function (event) {
-    event.preventDefault();
+    
+    
+    addRovOpts(enabledDates);
+    addCamOpts(rovCams);
     $('#images').empty();
     $('#sDate').empty();
     $('#eDate').empty();
-    $('#camera-select').empty();
-    $('#rov').empty();
+   
+    
     $('#camsavail').empty();
     newArray =[];
     images = [];
@@ -222,23 +253,11 @@ $("#reset-search").on("click", function (event) {
     addRovOpts(roverPull);
 });
 
-var imgFest = [
-    {
-        roverName: "",
-        r: "",
-        camera: "",
-        dates: {
-        }
-    }
-];
 
-var images = [];
-var camname = "";
-var earDate = "";
 
 //---Multiple Image API Query Function---//
 function getFotos(datearray) {                          //--Given the available dates, run an array of calls
-    var rov = $("#rov").val();                          //--use the rover and camera values to run the queries
+    // var rov = $("#rov").val();                          //--use the rover and camera values to run the queries
     var cam = $("#camera-select").val();
     
     var calls = datearray.map(it => {
