@@ -1,4 +1,12 @@
 
+//--Clear Form on Window Load--//
+    
+    $('#camera-select').empty();           
+    $('#sDate').empty();                   
+    $('#eDate').empty();                   
+    $('#camsavail').empty();               
+
+
 //----------------Set Variables--------------------
 sessionStorage.clear();
 //Nasa API Key
@@ -100,12 +108,17 @@ var promise3 = $.ajax({
 });
 
 
-function addRovOpts(pull) {
+function addRovOpts(enabledDates) {
+    
     $('#rov').empty();
-    for (var f = 0; f < pull.length; f++) {
+    var opt1 =$('<option selected disabled>');
+    opt1.attr('value','');
+    opt1.text('Select Rover');
+    $('#rov').append(opt1);
+     for (var f = 0; f < enabledDates.length; f++) {
         var opt = $('<option>');
-        opt.attr('value', pull[f].name.toLowerCase());
-        opt.text(pull[f].name);
+        opt.attr('value', enabledDates[f].roverName.toLowerCase());
+        opt.text(enabledDates[f].roverName);
         $('#rov').append(opt);
         }
         
@@ -158,7 +171,20 @@ var enabledDates = [
             ENTRY:[]
 
         },
+        photos: {
+            FHAZ: [],
+            RHAZ: [],
+            NAVCAM: [],
+            PANCAM: [],
+            MINITES: [],
+            CHEMCAM:[],
+            MARDI:[],
+            MAHLI:[],
+            MAST:[],
+            ENTRY:[]
+        },
         sumPhoto:[],
+        r:0,
         totalDates: []
     },
 
@@ -177,7 +203,20 @@ var enabledDates = [
             ENTRY:[]
 
         },
+        photos: {
+            FHAZ: [],
+            RHAZ: [],
+            NAVCAM: [],
+            PANCAM: [],
+            MINITES: [],
+            CHEMCAM:[],
+            MARDI:[],
+            MAHLI:[],
+            MAST:[],
+            ENTRY:[]
+        },
         sumPhoto:[],
+        r:1,
         totalDates:[]
     },
     {
@@ -194,7 +233,20 @@ var enabledDates = [
             MAST:[],
             ENTRY:[]
         },
+        photos: {
+            FHAZ: [],
+            RHAZ: [],
+            NAVCAM: [],
+            PANCAM: [],
+            MINITES: [],
+            CHEMCAM:[],
+            MARDI:[],
+            MAHLI:[],
+            MAST:[],
+            ENTRY:[]
+        },
     sumPhoto:[],
+    r: 2,
     totalDates:[]
     }
 ];
@@ -202,13 +254,14 @@ var enabledDates = [
 function fhazDates(r) {
 
     enabledDates[r].roverName = roverFest[r].name;
-    
+        
     fotos[r].forEach(function (day,i) {
         
         if (day.earth_date !== undefined){
             
         day.cameras.forEach(function (cameraName,j) {
            enabledDates[r].cameras[cameraName].push(day.earth_date);
+
            });
         }
            
@@ -245,7 +298,7 @@ Promise.all([promise1, promise2, promise3]).then(function () {
     }
 
    
-    addRovOpts(roverPull);
+    addRovOpts(enabledDates);
     
    
 });
